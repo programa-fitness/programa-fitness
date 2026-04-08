@@ -1,28 +1,40 @@
-<div id="quiz">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quiz Fitness</title>
 
 <style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f5f5f5;
+}
+
 .step {
   display: none;
 }
 
-.step.active {
+.active {
   display: block;
 }
 
 .container {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   margin-top: 30px;
 }
 
 .card {
-  width: 220px;
-  border-radius: 15px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 3px solid #8BE000;
+  width: 200px;
   background: white;
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  border: 2px solid #00c853;
   transition: 0.3s;
 }
 
@@ -30,56 +42,86 @@
   transform: scale(1.05);
 }
 
-.card p {
-  background: #8BE000;
-  margin: 0;
-  padding: 15px;
-  font-weight: bold;
+button {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: #00c853;
   color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 </style>
+</head>
 
-<!-- PASO 1 -->
+<body>
+
+<!-- STEP 1 -->
 <div class="step active" id="step1">
   <h2>¿Cuál es tu género?</h2>
 
   <div class="container">
-    <div class="card" onclick="nextStep(1)">
-      <p>Hombre</p>
-    </div>
-
-    <div class="card" onclick="nextStep(1)">
-      <p>Mujer</p>
-    </div>
+    <div class="card" onclick="next(1)">Hombre</div>
+    <div class="card" onclick="next(1)">Mujer</div>
   </div>
 </div>
 
-<!-- PASO 2 -->
+<!-- STEP 2 -->
 <div class="step" id="step2">
   <h2>¿Cuál es tu objetivo?</h2>
 
   <div class="container">
-    <div class="card" onclick="nextStep(2)">
-      <p>Bajar grasa</p>
-    </div>
-
-    <div class="card" onclick="nextStep(2)">
-      <p>Ganar músculo</p>
-    </div>
+    <div class="card" onclick="next(2)">Bajar grasa</div>
+    <div class="card" onclick="next(2)">Ganar músculo</div>
   </div>
 </div>
 
-<!-- PASO 3 -->
+<!-- STEP 3 -->
 <div class="step" id="step3">
-  <h2>Perfecto...</h2>
-  <p>Calculando tu plan personalizado...</p>
+  <h2>¿Cuántos años tienes?</h2>
+
+  <div class="container">
+    <div class="card" onclick="next(3)">18-25</div>
+    <div class="card" onclick="next(3)">25-35</div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="step" id="step4">
+  <h2>Analizando tus respuestas...</h2>
+  <p>Esto tomará unos segundos</p>
+</div>
+
+<!-- RESULTADO -->
+<div class="step" id="step5">
+  <h2>Tu plan está listo 🔥</h2>
+  <p>Hemos creado un plan personalizado para ti</p>
+
+  <button onclick="redirigir()">Ver mi plan</button>
 </div>
 
 <script>
-function nextStep(current){
-  document.getElementById("step" + current).classList.remove("active");
-  document.getElementById("step" + (current + 1)).classList.add("active");
+function next(step){
+  document.getElementById("step" + step).classList.remove("active");
+
+  if(step == 3){
+    document.getElementById("step4").classList.add("active");
+
+    setTimeout(() => {
+      document.getElementById("step4").classList.remove("active");
+      document.getElementById("step5").classList.add("active");
+    }, 2500);
+
+  } else {
+    document.getElementById("step" + (step + 1)).classList.add("active");
+  }
+}
+
+function redirigir(){
+  window.location.href = "TU_LINK_AFILIADO";
 }
 </script>
 
-</div>
+</body>
+</html>
