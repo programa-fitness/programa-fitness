@@ -1,1 +1,85 @@
+<div id="quiz">
 
+<style>
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.card {
+  width: 220px;
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid #8BE000;
+  background: white;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card p {
+  background: #8BE000;
+  margin: 0;
+  padding: 15px;
+  font-weight: bold;
+  color: white;
+}
+</style>
+
+<!-- PASO 1 -->
+<div class="step active" id="step1">
+  <h2>¿Cuál es tu género?</h2>
+
+  <div class="container">
+    <div class="card" onclick="nextStep(1)">
+      <p>Hombre</p>
+    </div>
+
+    <div class="card" onclick="nextStep(1)">
+      <p>Mujer</p>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 2 -->
+<div class="step" id="step2">
+  <h2>¿Cuál es tu objetivo?</h2>
+
+  <div class="container">
+    <div class="card" onclick="nextStep(2)">
+      <p>Bajar grasa</p>
+    </div>
+
+    <div class="card" onclick="nextStep(2)">
+      <p>Ganar músculo</p>
+    </div>
+  </div>
+</div>
+
+<!-- PASO 3 -->
+<div class="step" id="step3">
+  <h2>Perfecto...</h2>
+  <p>Calculando tu plan personalizado...</p>
+</div>
+
+<script>
+function nextStep(current){
+  document.getElementById("step" + current).classList.remove("active");
+  document.getElementById("step" + (current + 1)).classList.add("active");
+}
+</script>
+
+</div>
