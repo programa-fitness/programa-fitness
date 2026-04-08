@@ -11,54 +11,98 @@ body {
   font-family: Arial;
   text-align: center;
   background: #f5f5f5;
+  margin: 0;
 }
 
+/* Barra progreso */
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background: #ddd;
+}
+
+.progress-bar {
+  height: 6px;
+  width: 10%;
+  background: #7ED321;
+  transition: 0.3s;
+}
+
+/* Pantallas */
 .step {
   display: none;
+  padding: 20px;
 }
 
 .active {
   display: block;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.card {
-  width: 200px;
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  cursor: pointer;
-  border: 2px solid #00c853;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-button {
+/* Botón */
+.btn {
   margin-top: 20px;
-  padding: 15px 30px;
-  background: #00c853;
+  padding: 15px;
+  background: #7ED321;
   color: white;
   border: none;
   border-radius: 10px;
   font-size: 18px;
+  width: 80%;
+  max-width: 300px;
   cursor: pointer;
+}
+
+/* Cards */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 160px;
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  border: 2px solid #7ED321;
+}
+
+/* Imagen principal */
+.hero img {
+  width: 90%;
+  max-width: 400px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- STEP 1 -->
-<div class="step active" id="step1">
+<!-- PROGRESS BAR -->
+<div class="progress-container">
+  <div class="progress-bar" id="progress"></div>
+</div>
+
+<!-- LANDING -->
+<div class="step active" id="step0">
+  <h2>ENTRENA EN CASA O EN EL GIMNASIO</h2>
+  <h3 style="color:#7ED321;">CON CLARIDAD Y EFICACIA</h3>
+
+  <p>Una forma práctica y eficaz de ejercitarte en cualquier lugar y optimizar tus resultados.</p>
+
+  <div class="hero">
+    <img src="https://i.imgur.com/8Km9tLL.png">
+  </div>
+
+  <p><b>Rutinas Personalizadas listas para resultados reales.</b></p>
+
+  <button class="btn" onclick="next(0)">Continuar</button>
+</div>
+
+<!-- PREGUNTA 1 -->
+<div class="step" id="step1">
   <h2>¿Cuál es tu género?</h2>
 
   <div class="container">
@@ -67,7 +111,7 @@ button {
   </div>
 </div>
 
-<!-- STEP 2 -->
+<!-- PREGUNTA 2 -->
 <div class="step" id="step2">
   <h2>¿Cuál es tu objetivo?</h2>
 
@@ -77,7 +121,7 @@ button {
   </div>
 </div>
 
-<!-- STEP 3 -->
+<!-- PREGUNTA 3 -->
 <div class="step" id="step3">
   <h2>¿Cuántos años tienes?</h2>
 
@@ -90,7 +134,6 @@ button {
 <!-- LOADING -->
 <div class="step" id="step4">
   <h2>Analizando tus respuestas...</h2>
-  <p>Esto tomará unos segundos</p>
 </div>
 
 <!-- RESULTADO -->
@@ -98,12 +141,20 @@ button {
   <h2>Tu plan está listo 🔥</h2>
   <p>Hemos creado un plan personalizado para ti</p>
 
-  <button onclick="redirigir()">Ver mi plan</button>
+  <button class="btn" onclick="redirigir()">Ver mi plan</button>
 </div>
 
 <script>
+
+function actualizarBarra(step){
+  let progreso = (step / 5) * 100;
+  document.getElementById("progress").style.width = progreso + "%";
+}
+
 function next(step){
   document.getElementById("step" + step).classList.remove("active");
+
+  actualizarBarra(step + 1);
 
   if(step == 3){
     document.getElementById("step4").classList.add("active");
@@ -111,7 +162,8 @@ function next(step){
     setTimeout(() => {
       document.getElementById("step4").classList.remove("active");
       document.getElementById("step5").classList.add("active");
-    }, 2500);
+      actualizarBarra(5);
+    }, 2000);
 
   } else {
     document.getElementById("step" + (step + 1)).classList.add("active");
@@ -121,6 +173,7 @@ function next(step){
 function redirigir(){
   window.location.href = "TU_LINK_AFILIADO";
 }
+
 </script>
 
 </body>
