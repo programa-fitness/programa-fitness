@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Quiz Fitness</title>
 
 <style>
@@ -14,7 +13,6 @@ body {
   margin: 0;
 }
 
-/* Barra progreso */
 .progress-container {
   width: 100%;
   height: 6px;
@@ -28,7 +26,6 @@ body {
   transition: 0.3s;
 }
 
-/* Pantallas */
 .step {
   display: none;
   padding: 20px;
@@ -38,7 +35,6 @@ body {
   display: block;
 }
 
-/* Botón */
 .btn {
   margin-top: 20px;
   padding: 15px;
@@ -52,7 +48,6 @@ body {
   cursor: pointer;
 }
 
-/* Cards */
 .container {
   display: flex;
   justify-content: center;
@@ -62,25 +57,172 @@ body {
 }
 
 .card {
-  width: 160px;
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
+  width: 200px;
+  border-radius: 20px;
+  overflow: hidden;
   cursor: pointer;
-  border: 2px solid #7ED321;
+  background: transparent;
+  border: none;
+  box-shadow: 0 4px 10px rgba(81, 255, 0, 0.514);
+  transition: 0.3s;
 }
 
-/* Imagen principal */
 .hero img {
   width: 90%;
   max-width: 400px;
+}
+
+.img-full {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.label {
+  background: #7ED321;
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+}
+
+.card-objetivo {
+  background: #f0f9e8;
+  border: 2px solid #7ED321;
+  border-radius: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.card-objetivo:hover {
+  background: #e8f5dc;
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(126, 211, 33, 0.3);
+}
+
+.card-objetivo-simple {
+  background: #f0f9e8;
+  border: 2px solid #7ED321;
+  border-radius: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.card-objetivo-simple:hover {
+  background: #e8f5dc;
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(126, 211, 33, 0.3);
+}
+
+.btn-unidad {
+  padding: 10px 20px;
+  border: 2px solid #7ED321;
+  background: white;
+  color: #7ED321;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-unidad.active {
+  background: #7ED321;
+  color: white;
+}
+
+.btn-unidad:hover {
+  transform: scale(1.05);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #7ED321;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #7ED321;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.img-satisfaccion {
+  width: 90%;
+  max-width: 380px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin: 0 auto;
+  display: block;
+}
+
+.punto-carrusel {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7ED321;
+  margin: 10px 4px 0;
+}
+
+/* Gráfica dificultad */
+.grafica-container {
+  width: 90%;
+  max-width: 380px;
+  margin: 15px auto;
+  position: relative;
+}
+
+.grafica-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+  padding: 0 5px;
+}
+
+.img-dificultad {
+  width: 90%;
+  max-width: 380px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin: 15px auto 0;
+  display: block;
 }
 </style>
 </head>
 
 <body>
 
-<!-- PROGRESS BAR -->
 <div class="progress-container">
   <div class="progress-bar" id="progress"></div>
 </div>
@@ -89,91 +231,1003 @@ body {
 <div class="step active" id="step0">
   <h2>ENTRENA EN CASA O EN EL GIMNASIO</h2>
   <h3 style="color:#7ED321;">CON CLARIDAD Y EFICACIA</h3>
-
   <p>Una forma práctica y eficaz de ejercitarte en cualquier lugar y optimizar tus resultados.</p>
-
   <div class="hero">
     <img src="Img/Reto Modo Fantasma 21 días.png">
   </div>
-
   <p><b>Rutinas Personalizadas listas para resultados reales.</b></p>
-
   <button class="btn" onclick="next(0)">Continuar</button>
 </div>
 
-<!-- PREGUNTA 1 -->
+<!-- PREGUNTA 1: GÉNERO -->
 <div class="step" id="step1">
   <h2>¿Cuál es tu género?</h2>
-
   <div class="container">
-    <div class="card" onclick="next(1)">Hombre</div>
-    <div class="card" onclick="next(1)">Mujer</div>
-  </div>
-</div>
-
-<!-- PREGUNTA 2 -->
-<div class="step" id="step2">
-  <h2>¿Cuál es tu objetivo?</h2>
-
-  <div class="container">
-    <div class="card" onclick="next(2)">Bajar grasa</div>
-    <div class="card" onclick="next(2)">Ganar músculo</div>
-  </div>
-</div>
-
-<!-- PREGUNTA 3 -->
-<div class="step" id="step3">
-  <h2>¿Cuántos años tienes?</h2>
-
-  <div class="container">
-    <div class="card" onclick="next(3)">18-25</div>
-    <div class="card" onclick="next(3)">25-35</div>
+    <div class="card" onclick="seleccionarGenero('hombre')">
+      <img src="Img/Retrato en primer plano de hombre atlético.png" class="img-full">
+      <div class="label">Hombre</div>
+    </div>
+    <div class="card" onclick="seleccionarGenero('mujer')">
+      <img src="Img/Retrato en el gimnasio con sonrisa.png" class="img-full">
+      <div class="label">Mujer</div>
+    </div>
   </div>
 </div>
 
 <!-- LOADING -->
-<div class="step" id="step4">
-  <h2>Analizando tus respuestas...</h2>
+<div class="step" id="step2">
+  <div style="margin: 30px 0;">
+    <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">PROGRAMA</h3>
+    <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">RUTINA PERFECTA</h3>
+  </div>
+  <h3 id="textoCarga">Cargando... <span id="porcentaje">0%</span></h3>
+  <div style="width:80%; max-width:300px; height:10px; background:#ddd; margin:20px auto; border-radius:10px;">
+    <div id="barraCarga" style="height:10px; width:0%; background:#7ED321; border-radius:10px;"></div>
+  </div>
+  <h3 id="usuariosTexto" style="margin-top:20px;"></h3>
+  <p>Es el número de personas que ya utilizan el reto modo fantasma 21 días</p>
+  <div style="margin-top:20px;">
+    <img src="Img/Reto Modo Fantasma 21 días.png" style="width:80%; max-width:300px;">
+  </div>
 </div>
 
-<!-- RESULTADO -->
-<div class="step" id="step5">
-  <h2>Tu plan está listo 🔥</h2>
-  <p>Hemos creado un plan personalizado para ti</p>
+<!-- PREGUNTA 2: EDAD -->
+<div class="step" id="step3">
+  <h2>¿Cuál es tu Edad?</h2>
+  <div class="container">
+    <div class="card" onclick="seleccionarEdad('18-29')">
+      <img src="Img/edad-18-29.png" class="img-full">
+      <div class="label">18 a 29</div>
+    </div>
+    <div class="card" onclick="seleccionarEdad('30-39')">
+      <img src="Img/edad-30-39.png" class="img-full">
+      <div class="label">30 a 39</div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card" onclick="seleccionarEdad('40-49')">
+      <img src="Img/edad-40-49.png" class="img-full">
+      <div class="label">40 a 49</div>
+    </div>
+    <div class="card" onclick="seleccionarEdad('50+')">
+      <img src="Img/edad-50-plus.png" class="img-full">
+      <div class="label">Más de 50</div>
+    </div>
+  </div>
+</div>
 
-  <button class="btn" onclick="redirigir()">Ver mi plan</button>
+<!-- PREGUNTA 3: OBJETIVO -->
+<div class="step" id="step4">
+  <h2>¿Cuál es tu objetivo principal?</h2>
+  <p style="color: #999; font-size: 14px;">Elige una o más opciones para continuar</p>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarObjetivo('ganarMusculo')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 40px;">💪</span>
+        <span style="font-size: 16px; font-weight: bold;">Ganar masa Muscular</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarObjetivo('perderPeso')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 40px;">🔥</span>
+        <span style="font-size: 16px; font-weight: bold;">Perder Peso</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarObjetivo('mixto')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 40px;">⚖️</span>
+        <span style="font-size: 16px; font-weight: bold;">Pierdes grasa y gana masa muscular</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarObjetivo('todasOpciones')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 40px;">🎯</span>
+        <span style="font-size: 16px; font-weight: bold;">Todas las Opciones</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarObjetivo('otro')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 40px;">📝</span>
+        <span style="font-size: 16px; font-weight: bold;">Otro</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PREGUNTA 4: PESO -->
+<div class="step" id="step5">
+  <h2>¿Cuánto pesas actualmente?</h2>
+  <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+    <button class="btn-unidad active" id="btnKg" onclick="cambiarUnidad('kg')">kg</button>
+    <button class="btn-unidad" id="btnLb" onclick="cambiarUnidad('lb')">lb</button>
+  </div>
+  <div style="font-size: 56px; font-weight: bold; color: #7ED321; margin: 20px 0;">
+    <span id="pesoActual">70</span><span id="unidadActual">kg</span>
+  </div>
+  <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px 0;">
+    <input type="range" id="pesoSlider" min="40" max="250" value="70"
+           style="width: 100%; height: 6px; cursor: pointer; accent-color: #7ED321;
+                  -webkit-appearance: slider-horizontal; appearance: slider-horizontal;">
+  </div>
+  <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
+  <button class="btn" onclick="siguiente(5)" style="margin-top: 30px;">Continuar</button>
+</div>
+
+<!-- PREGUNTA 5: ALTURA -->
+<div class="step" id="step6">
+  <h2>¿Cuál es tu altura?</h2>
+  <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
+    <button class="btn-unidad active" id="btnCm" onclick="cambiarUnidadAltura('cm')">cm</button>
+    <button class="btn-unidad" id="btnPol" onclick="cambiarUnidadAltura('pol')">pol</button>
+  </div>
+  <div style="font-size: 56px; font-weight: bold; color: #7ED321; margin: 20px 0;">
+    <span id="alturaActual">180</span><span id="unidadActualAltura">cm</span>
+  </div>
+  <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px 0;">
+    <input type="range" id="alturaSlider" min="140" max="220" value="180"
+           style="width: 100%; height: 6px; cursor: pointer; accent-color: #7ED321;
+                  -webkit-appearance: slider-horizontal; appearance: slider-horizontal;">
+  </div>
+  <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
+  <button class="btn" onclick="siguiente(6)" style="margin-top: 30px;">Continuar</button>
+</div>
+
+<!-- PREGUNTA 6: TIPO DE CUERPO -->
+<div class="step" id="step6b">
+  <h2>¿Cómo describirías tu cuerpo?</h2>
+  <div class="container">
+    <div class="card" onclick="seleccionarCuerpo('delgado')">
+      <img src="Img/cuerpo-delgado.png" class="img-full">
+      <div class="label">Delgado</div>
+    </div>
+    <div class="card" onclick="seleccionarCuerpo('promedio')">
+      <img src="Img/cuerpo-promedio.png" class="img-full">
+      <div class="label">Promedio</div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card" onclick="seleccionarCuerpo('grande')">
+      <img src="Img/cuerpo-grande.png" class="img-full">
+      <div class="label">Grande</div>
+    </div>
+    <div class="card" onclick="seleccionarCuerpo('porArribaPeso')">
+      <img src="Img/cuerpo-por-arriba.png" class="img-full">
+      <div class="label">Por arriba del peso</div>
+    </div>
+  </div>
+</div>
+
+<!-- PREGUNTA 7: SATISFACCIÓN CORPORAL -->
+<div class="step" id="step6c">
+  <h2>¿Qué tan satisfecho/a estás con tu imagen corporal actual?</h2>
+  <p style="color: #999; font-size: 14px;">Elige una opción para continuar.</p>
+  <div style="margin: 20px auto; max-width: 380px;">
+    <img id="imgSatisfaccion" src="" class="img-satisfaccion">
+    <div style="margin-top: 10px;">
+      <span class="punto-carrusel"></span>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarSatisfaccion('meGusta')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😐</span>
+        <span id="textoSatisfaccion1" style="font-size: 16px; font-weight: bold;"></span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarSatisfaccion('noSatisfecho')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😟</span>
+        <span id="textoSatisfaccion2" style="font-size: 16px; font-weight: bold;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PREGUNTA 8: DIFICULTAD -->
+<div class="step" id="step6d">
+  <h2>¿Cuál es tu mayor dificultad para tener una rutina de entrenamiento constante?</h2>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarDificultad('tiempo', 'Falta de tiempo')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">⏰</span>
+        <span style="font-size: 16px; font-weight: bold;">Falta de Tiempo</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarDificultad('aburrimiento', 'Entrenamiento repetitivo')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😒</span>
+        <span style="font-size: 16px; font-weight: bold;">Creo que el entrenamiento es siempre lo mismo</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarDificultad('motivacion', 'Falta de motivación')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😴</span>
+        <span style="font-size: 16px; font-weight: bold;">Falta de iniciativa o motivación</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarDificultad('tecnica', 'No sé hacer los ejercicios')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🤔</span>
+        <span style="font-size: 16px; font-weight: bold;">No se como hacer correctamente los ejercicios</span>
+      </div>
+    </div>
+    <div class="card-objetivo-simple" onclick="seleccionarDificultad('otros', 'Otros')">
+      <span style="font-size: 16px; font-weight: bold;">Otros</span>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA RESULTADO DIFICULTAD -->
+<div class="step" id="step6e">
+  <h2 id="tituloDificultad" style="color: #e74c3c; font-size: 22px; margin-bottom: 10px;"></h2>
+
+  <!-- Gráfica SVG -->
+  <div class="grafica-container">
+    <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
+      <defs>
+        <linearGradient id="curvaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#f1c40f;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#7ED321;stop-opacity:1" />
+        </linearGradient>
+        <clipPath id="curvaClip">
+          <path d="M20,100 Q80,95 130,70 Q180,40 300,10 L300,110 L20,110 Z"/>
+        </clipPath>
+      </defs>
+
+      <!-- Área rellena bajo la curva -->
+      <path d="M20,100 Q80,95 130,70 Q180,40 300,10 L300,110 L20,110 Z"
+            fill="url(#curvaGrad)" opacity="0.25"/>
+
+      <!-- Línea de la curva -->
+      <path d="M20,100 Q80,95 130,70 Q180,40 300,10"
+            fill="none" stroke="url(#curvaGrad)" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Punto fijo en posición media (x=155, y=55) -->
+      <circle cx="155" cy="55" r="8" fill="#f1c40f" stroke="white" stroke-width="2"/>
+
+      <!-- Etiqueta del punto -->
+      <rect x="90" y="62" width="115" height="26" rx="8" fill="#f1c40f"/>
+      <text x="148" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="white" id="etiquetaGrafica"></text>
+    </svg>
+    <div class="grafica-labels">
+      <span>Poco</span>
+      <span>Medio</span>
+      <span>Mucho</span>
+    </div>
+  </div>
+
+  <p style="font-size: 14px; color: #333; margin: 15px 20px; line-height: 1.5;">
+    Este es uno de los principales motivos de los bajos resultados y de la falta de constancia en la práctica de ejercicio.
+  </p>
+
+  <!-- Imagen según dificultad -->
+  <img id="imgDificultad" src="" class="img-dificultad">
+
+  <button class="btn" onclick="irDesdeDificultad()" style="margin-top: 25px; margin-bottom: 30px;">Continuar</button>
+</div>
+
+<!-- NUEVA PANTALLA: ¿ESTÁS DISPUESTO A CAMBIAR? -->
+<div class="step" id="step6f">
+  <h2>¿Estás dispuesto a cambiar este escenario actual?</h2>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarCambio('dispuesto')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😎</span>
+        <span style="font-size: 16px; font-weight: bold;">Si, Estoy Dispuesto!</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarCambio('no')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">😬</span>
+        <span style="font-size: 16px; font-weight: bold;">No, Quiero seguir como estoy</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarCambio('entrenador')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">💪</span>
+        <span style="font-size: 16px; font-weight: bold;">Soy Entrenador y quiero mejorar</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NUEVA PANTALLA: PREFERENCIA DE ENTRENAMIENTO -->
+<div class="step" id="step6g">
+  <h2>¿Cuál es tu preferencia?</h2>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarPreferencia('casa')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🏠</span>
+        <span style="font-size: 16px; font-weight: bold;">Entrenamientos en casa</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarPreferencia('gimnasio')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🏋️</span>
+        <span style="font-size: 16px; font-weight: bold;">Entrenamientos en el gimnasio</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarPreferencia('aerobico')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🏃</span>
+        <span style="font-size: 16px; font-weight: bold;">Aeróbicos y entrenamiento funcional</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarPreferencia('todo')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🤌</span>
+        <span style="font-size: 16px; font-weight: bold;">Todo lo anterior</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA LOADING PERFECTO -->
+<div class="step" id="step6h">
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajePerfecto" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 0 auto; border-radius: 10px;">
+    <div id="barraPerfecto" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <h2 style="color: #7ED321; margin-top: 25px;">¡Perfecto!</h2>
+  <p style="font-size: 15px; color: #333; margin: 0 20px 20px;">Vamos a entregarte un Programa que se adaptará a tus necesidades...</p>
+  <img src="Img/ejercicios-collage.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto;">
+</div>
+
+<!-- PANTALLA FORMATO DE ENTREGA -->
+<div class="step" id="step6i">
+  <h2 style="text-align: left; font-size: 20px; margin: 20px;">RECIBIRÁS UN <span style="color:#7ED321;">PROGRAMA COMPLETO CON MATERIALES PRÁCTICOS Y OBJETIVOS</span> QUE MAXIMIZARÁN TUS RESULTADOS.</h2>
+  <p style="color: #999; font-size: 14px;">Dime, ¿cómo prefieres recibir el material?</p>
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+    <div class="card-objetivo" onclick="seleccionarFormato('celular')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">📱</span>
+        <span style="font-size: 16px; font-weight: bold;">Quiero verlo en mi celular.</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarFormato('pdf')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">📖</span>
+        <span style="font-size: 16px; font-weight: bold;">Quiero recibirlo como PDF para imprimir.</span>
+      </div>
+    </div>
+    <div class="card-objetivo" onclick="seleccionarFormato('ambos')">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 36px;">🔥</span>
+        <span style="font-size: 16px; font-weight: bold;">Lo quiero tanto para celular como para imprimir.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANTALLA PREPARACIÓN DEL PLAN -->
+<div class="step" id="step6j">
+  <h2 style="color:#7ED321; font-size: 20px; margin: 30px 20px 20px;">PREPARACIÓN DE UN PLAN BASADO EN SUS RESPUESTAS</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajePlan" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 20px; border-radius: 10px;">
+    <div id="barraPlan" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <img src="Img/programa-completo.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto;">
+</div>
+
+<!-- PANTALLA ESTRUCTURA DEL ENTRENAMIENTO -->
+<div class="step" id="step6k">
+  <h2 style="font-size: 20px; margin: 30px 20px 15px;">ESTRUCTURA DEL ENTRENAMIENTO</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajeEstructura" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
+    <div id="barraEstructura" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa de entrenamiento Fitnes Completo</p>
+  <p style="font-size: 16px; color: #7ED321; font-weight: bold; margin: 15px 20px; line-height: 1.5;">Una gran ventaja de este material es que, además de las ilustraciones, comprenderás los beneficios, cómo realizar los ejercicios y recibirás consejos increíbles.</p>
+  <img src="Img/estructura-entrenamiento.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
+  <button class="btn" id="btnEstructura" style="display:none;" onclick="irDesdeEstructura()">Continuar</button>
+</div>
+
+<!-- PANTALLA ENTRENAMIENTO LISTOS -->
+<div class="step" id="step6l">
+  <h2 style="font-size: 20px; margin: 30px 20px 15px;">ENTRENAMIENTO LISTOS</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajeLisros" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
+    <div id="barraListos" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa de entrenamiento Fitnes Completo</p>
+  <img src="Img/entrenamiento-listos.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
+</div>
+
+<!-- PANTALLA BENEFICIOS, EJECUCION Y CONSEJOS -->
+<div class="step" id="step6n">
+  <h2 style="font-size: 20px; margin: 30px 20px 15px;">BENEFICIOS, EJECUCION Y CONSEJOS</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajeBeneficios" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
+    <div id="barraBeneficios" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa de entrenamiento Fitnes por objetivo</p>
+  <img src="Img/beneficios-consejos.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
+</div>
+
+<!-- PANTALLA GUIA DE ACCESORIOS -->
+<div class="step" id="step6m">
+  <h2 style="font-size: 20px; margin: 30px 20px 15px;">GUIA DE ACCESORIOS</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajeAccesorios" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
+    <div id="barraAccesorios" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa Fitnes</p>
+  <img src="Img/guia-accesorios.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
+</div>
+
+<!-- PANTALLA TENDRÁS ACCESO -->
+<div class="step" id="step6o">
+  <h2 style="color:#7ED321; font-size: 20px; margin: 30px 20px 5px;">TENDRÁS ACCESO A:</h2>
+  <p style="font-size: 15px; margin: 0 20px 5px;">Rutinas de entrenamiento estructuradas y ejercicios <span style="color:#7ED321; font-style:italic;">ilustrados, organizados por circuito, grupo muscular y objetivos.</span></p>
+  <p style="font-size: 22px; margin: 10px 0;">+</p>
+  <p style="font-size: 15px; margin: 0 20px 15px;">Materiales esenciales y guias prácticas para optimizar tu tiempo y maximizar tus resultados.</p>
+  <img src="Img/acceso-programa.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 15px;">
+  <p style="font-size: 13px; font-weight: bold; margin: 0 20px 20px;">DESARROLLADO Y DISEÑADO PARA BRINDARLE EFICIENCIA, PRACTICIDAD Y CLARIDAD.</p>
+  <button class="btn" onclick="irDesdeAcceso()" style="margin-bottom: 30px;">Continuar</button>
+</div>
+
+<!-- PANTALLA MATERIALES COMPLEMENTARES -->
+<div class="step" id="step6p">
+  <h2 style="color:#7ED321; font-size: 22px; margin: 30px 20px 20px;">MATERIALES COMPLEMENTARES</h2>
+
+  <h3 style="font-size: 18px; margin: 0 20px 10px;">SUPLEMENTACIÓN</h3>
+  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Además de sus beneficios específicos, la suplementación puede ayudar a cubrir las deficiencias nutricionales, asegurando que el cuerpo reciba todos los nutrientes necesarios para funcionar de forma óptima. Esto puede mejorar el rendimiento deportivo, aumentar la energía diaria y favorecer la recuperación muscular.</p>
+  <img src="Img/suplementacion.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+
+  <h3 style="font-size: 18px; margin: 0 20px 10px;">CHECK LIST</h3>
+  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Con un diseño moderno y funcional, la Lista de Verificación ofrece secciones para planificar tus objetivos, registrar tus entrenamientos diarios y controlar tu progreso.</p>
+  <img src="Img/checklist.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+
+  <h3 style="font-size: 18px; margin: 0 20px 10px;">PLANNER FIT</h3>
+  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Presentamos el Planificador de Entrenamiento: ¡tu compañero ideal para alcanzar tus objetivos de aumento de masa muscular o pérdida de peso! Este planificador se diseñó para satisfacer tus necesidades específicas, ya sea para aumentar la masa muscular o perder peso de forma saludable.</p>
+  <img src="Img/planner-fit.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+
+  <button class="btn" onclick="irDesdeMateriales()" style="margin-bottom:30px;">Continuar</button>
+</div>
+
+<!-- PANTALLA TU PLAN ESTÁ LISTO -->
+<div class="step" id="step6q">
+  <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px;">
+    <span style="font-size: 14px; color: #333;">Cargando...</span>
+    <span id="porcentajePlanListo" style="font-size: 14px; color: #333;">0%</span>
+  </div>
+  <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 0 auto 20px; border-radius: 10px;">
+    <div id="barraPlanListo" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
+  </div>
+  <h2 style="color:#7ED321; font-size: 22px; margin: 10px 20px 5px;">Tu Plan está listo...</h2>
+  <p style="font-size: 14px; color:#333; margin: 0 20px 20px;">Recibirás mucho más que una simple ficha de entrenamiento...</p>
+  <img src="Img/testimonios-whatsapp.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+</div>
+
+<!-- PANTALLA VIDEO FINAL -->
+<div class="step" id="step6r">
+  <p style="font-size: 15px; margin: 25px 20px 15px;">
+    Descubre en detalle <span style="color:#7ED321; font-style:italic; font-weight:bold;">QUÉ ES El PROGRAMA RUTINA PERFECTA</span> ahora.
+  </p>
+
+  <!-- CONTENEDOR VIDEO -->
+  <!-- 🎬 REEMPLAZA el src con tu URL: YouTube: https://www.youtube.com/embed/TU_VIDEO_ID?enablejsapi=1 -->
+  <div style="position:relative; width:90%; max-width:380px; margin:0 auto; border-radius:12px; overflow:hidden; background:#c0392b;">
+    <iframe
+      id="videoFinal"
+      width="100%"
+      height="280"
+      src="https://www.youtube.com/shorts/ptSHIv1eUZY"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      style="display:block;">
+    </iframe>
+  </div>
+
+  <p style="font-size: 12px; color:#999; margin: 10px 20px 5px;">Mira el vídeo haciendo clic en Play, el vídeo dura menos de dos minutos.</p>
+  <p style="font-size: 13px; font-weight:bold; margin: 0 20px 20px;">⚠️ Haz clic en continuar solo después de ver todo el vídeo.</p>
+
+  <!-- BOTÓN COMPRAR - oculto, aparece después del video -->
+  <!-- ⏱️ El temporizador está en 120000ms = 2 minutos. Cámbialo si el video dura diferente -->
+  <!-- 🔗 Reemplaza "TU_LINK_DE_COMPRA" con tu link de pago/afiliado -->
+  <div id="btnComprarContainer" style="display:none; margin-bottom:30px;">
+    <button class="btn" onclick="window.location.href='TU_LINK_DE_COMPRA'" style="background:#e74c3c;">
+      🛒 ¡Quiero Acceder Ahora!
+    </button>
+  </div>
+</div>
+
+<!-- PANTALLA FINAL -->
+<div class="step" id="step7">
+  <div style="margin: 30px 0;">
+    <h2>¡Tu Rutina Está Lista!</h2>
+    <p>Basada en tu perfil personalizado</p>
+    <div style="margin: 30px 0;">
+      <img src="Img/Reto Modo Fantasma 21 días.png" style="width:80%; max-width:300px; border-radius: 15px;">
+    </div>
+    <p id="resumenPerfil"></p>
+    <button class="btn" onclick="redirigir()">Acceder a tu Rutina</button>
+  </div>
 </div>
 
 <script>
+let genero = "";
+let objetivo = "";
+let edad = "";
+let peso = 70;
+let unidad = "kg";
+let altura = 180;
+let unidadAltura = "cm";
+let tipoCuerpo = "";
+let satisfaccion = "";
+let dificultad = "";
+let dificultadLabel = "";
+let dispuestoCambio = "";
+let preferencia = "";
+let formato = "";
+
+// ===== LOCALSTORAGE =====
+
+function guardarDatos(){
+  let datos = {
+    genero, objetivo, edad, peso, unidad,
+    altura, unidadAltura, tipoCuerpo, satisfaccion,
+    dificultad, dificultadLabel, dispuestoCambio, preferencia,
+    timestamp: new Date().getTime()
+  };
+  localStorage.setItem("quizFitness", JSON.stringify(datos));
+}
+
+function cargarDatos(){
+  let datosGuardados = localStorage.getItem("quizFitness");
+  if(datosGuardados){
+    let datos = JSON.parse(datosGuardados);
+    genero          = datos.genero          || "";
+    objetivo        = datos.objetivo        || "";
+    edad            = datos.edad            || "";
+    tipoCuerpo      = datos.tipoCuerpo      || "";
+    satisfaccion    = datos.satisfaccion    || "";
+    dificultad      = datos.dificultad      || "";
+    dificultadLabel = datos.dificultadLabel || "";
+    dispuestoCambio = datos.dispuestoCambio || "";
+    preferencia     = datos.preferencia     || "";
+    peso            = (datos.peso >= 40 && datos.peso <= 250) ? datos.peso : 70;
+    unidad          = datos.unidad          || "kg";
+    altura          = (datos.altura >= 140 && datos.altura <= 220) ? datos.altura : 180;
+    unidadAltura    = datos.unidadAltura    || "cm";
+    return true;
+  }
+  peso = 70; altura = 180;
+  return false;
+}
+
+function limpiarDatos(){
+  localStorage.removeItem("quizFitness");
+}
+
+// ===== QUIZ =====
+
+function seleccionarGenero(g){
+  genero = g;
+  guardarDatos();
+  document.getElementById("step1").classList.remove("active");
+  document.getElementById("step2").classList.add("active");
+  actualizarBarra(2);
+  setTimeout(() => { mostrarNumeroUsuarios(); }, 500);
+}
+
+function seleccionarEdad(e){
+  edad = e;
+  guardarDatos();
+  next(3);
+}
+
+function seleccionarObjetivo(o){
+  objetivo = o;
+  guardarDatos();
+  next(4);
+}
+
+function seleccionarCuerpo(c){
+  tipoCuerpo = c;
+  guardarDatos();
+  document.getElementById("step6b").classList.remove("active");
+  prepararSatisfaccion();
+  document.getElementById("step6c").classList.add("active");
+  actualizarBarra(7);
+}
+
+function prepararSatisfaccion(){
+  document.getElementById("imgSatisfaccion").src = genero === 'mujer'
+    ? 'Img/satisfaccion-mujer.png'
+    : 'Img/satisfaccion-hombre.png';
+  document.getElementById("textoSatisfaccion1").textContent = "Me gusta mi cuerpo, pero quiero mejorarlo.";
+  document.getElementById("textoSatisfaccion2").textContent = genero === 'mujer'
+    ? "No estoy satisfecha, necesito mejorar."
+    : "No estoy satisfecho, necesito mejorar.";
+}
+
+function seleccionarSatisfaccion(s){
+  satisfaccion = s;
+  guardarDatos();
+  document.getElementById("step6c").classList.remove("active");
+  document.getElementById("step6d").classList.add("active");
+  actualizarBarra(8);
+}
+
+function seleccionarDificultad(d, label){
+  dificultad = d;
+  dificultadLabel = label;
+  guardarDatos();
+
+  document.getElementById("tituloDificultad").textContent = label;
+  document.getElementById("etiquetaGrafica").textContent = label;
+  document.getElementById("imgDificultad").src = "Img/dificultad-" + d + ".png";
+
+  document.getElementById("step6d").classList.remove("active");
+  document.getElementById("step6e").classList.add("active");
+  actualizarBarra(9);
+}
+
+function irDesdeDificultad(){
+  document.getElementById("step6e").classList.remove("active");
+  document.getElementById("step6f").classList.add("active");
+  actualizarBarra(9.5);
+}
+
+function seleccionarCambio(opcion){
+  dispuestoCambio = opcion;
+  guardarDatos();
+  document.getElementById("step6f").classList.remove("active");
+  document.getElementById("step6g").classList.add("active");
+  actualizarBarra(9.8);
+}
+
+function seleccionarPreferencia(p){
+  preferencia = p;
+  guardarDatos();
+  document.getElementById("step6g").classList.remove("active");
+  document.getElementById("step6h").classList.add("active");
+  actualizarBarra(9.9);
+  animarCargaPerfecto();
+}
+
+function animarCargaPerfecto(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 20;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajePerfecto").textContent = Math.round(pct) + "%";
+    document.getElementById("barraPerfecto").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6h").classList.remove("active");
+        document.getElementById("step6i").classList.add("active");
+        actualizarBarra(9.95);
+      }, 1500);
+    }
+  }, 200);
+}
+
+function seleccionarFormato(f){
+  formato = f;
+  guardarDatos();
+  document.getElementById("step6i").classList.remove("active");
+  document.getElementById("step6j").classList.add("active");
+  actualizarBarra(9.98);
+  animarCargaPlan();
+}
+
+function animarCargaPlan(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajePlan").textContent = Math.round(pct) + "%";
+    document.getElementById("barraPlan").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6j").classList.remove("active");
+        document.getElementById("step6k").classList.add("active");
+        actualizarBarra(9.99);
+        animarCargaEstructura();
+      }, 1500);
+    }
+  }, 200);
+}
+
+function animarCargaEstructura(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajeEstructura").textContent = Math.round(pct) + "%";
+    document.getElementById("barraEstructura").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      document.getElementById("btnEstructura").style.display = "inline-block";
+    }
+  }, 200);
+}
+
+function irDesdeEstructura(){
+  document.getElementById("step6k").classList.remove("active");
+  document.getElementById("step6l").classList.add("active");
+  actualizarBarra(9.995);
+  animarCargaListos();
+}
+
+function animarCargaListos(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajeLisros").textContent = Math.round(pct) + "%";
+    document.getElementById("barraListos").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6l").classList.remove("active");
+        document.getElementById("step6n").classList.add("active");
+        actualizarBarra(9.996);
+        animarCargaBeneficios();
+      }, 1500);
+    }
+  }, 200);
+}
+
+function animarCargaBeneficios(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajeBeneficios").textContent = Math.round(pct) + "%";
+    document.getElementById("barraBeneficios").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6n").classList.remove("active");
+        document.getElementById("step6m").classList.add("active");
+        actualizarBarra(9.997);
+        animarCargaAccesorios();
+      }, 1500);
+    }
+  }, 200);
+}
+
+function irDesdeAcceso(){
+  document.getElementById("step6o").classList.remove("active");
+  document.getElementById("step6p").classList.add("active");
+  actualizarBarra(9.9995);
+}
+
+function irDesdeMateriales(){
+  document.getElementById("step6p").classList.remove("active");
+  document.getElementById("step6q").classList.add("active");
+  actualizarBarra(9.9998);
+  animarCargaPlanListo();
+}
+
+function animarCargaPlanListo(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajePlanListo").textContent = Math.round(pct) + "%";
+    document.getElementById("barraPlanListo").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6q").classList.remove("active");
+        document.getElementById("step6r").classList.add("active");
+        actualizarBarra(10);
+        iniciarTemporizadorVideo();
+      }, 1500);
+    }
+  }, 200);
+}
+
+function animarCargaAccesorios(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajeAccesorios").textContent = Math.round(pct) + "%";
+    document.getElementById("barraAccesorios").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step6m").classList.remove("active");
+        document.getElementById("step6o").classList.add("active");
+        actualizarBarra(9.999);
+      }, 1500);
+    }
+  }, 200);
+}
+
+function iniciarTemporizadorVideo(){
+  // ⏱️ Duración del video en milisegundos. 120000 = 2 minutos
+  // Cámbialo si tu video dura diferente: 90000 = 1:30 min, 150000 = 2:30 min
+  const DURACION_VIDEO_MS = 120000;
+
+  setTimeout(() => {
+    document.getElementById("btnComprarContainer").style.display = "block";
+  }, DURACION_VIDEO_MS);
+}
 
 function actualizarBarra(step){
-  let progreso = (step / 5) * 100;
+  let progreso = (step / 10) * 100;
   document.getElementById("progress").style.width = progreso + "%";
+}
+
+function mostrarNumeroUsuarios(){
+  let numero = genero === 'mujer' ? 'Más de 4 mil' : 'Más de 3 mil';
+  document.getElementById("usuariosTexto").textContent = numero;
+  let porcentaje = 0;
+  let intervalo = setInterval(() => {
+    porcentaje += Math.random() * 30;
+    if(porcentaje >= 100) porcentaje = 100;
+    document.getElementById("porcentaje").textContent = Math.round(porcentaje) + "%";
+    document.getElementById("barraCarga").style.width = porcentaje + "%";
+    if(porcentaje >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        document.getElementById("step2").classList.remove("active");
+        document.getElementById("step3").classList.add("active");
+        actualizarBarra(3);
+      }, 1000);
+    }
+  }, 200);
 }
 
 function next(step){
   document.getElementById("step" + step).classList.remove("active");
-
   actualizarBarra(step + 1);
-
-  if(step == 3){
-    document.getElementById("step4").classList.add("active");
-
-    setTimeout(() => {
-      document.getElementById("step4").classList.remove("active");
-      document.getElementById("step5").classList.add("active");
-      actualizarBarra(5);
-    }, 2000);
-
+  if(step == 6){
+    document.getElementById("step6b").classList.add("active");
   } else {
     document.getElementById("step" + (step + 1)).classList.add("active");
   }
 }
 
+function mostrarResumen(){
+  let textoGenero = genero === 'mujer' ? 'Mujer' : 'Hombre';
+  let textoObjetivo = {
+    ganarMusculo:  'Ganar masa muscular',
+    perderPeso:    'Perder peso',
+    mixto:         'Perder grasa y ganar músculo',
+    todasOpciones: 'Todas las opciones',
+    otro:          'Otro'
+  }[objetivo] || objetivo;
+  let textoCuerpo = {
+    delgado:       'Delgado',
+    promedio:      'Promedio',
+    grande:        'Grande',
+    porArribaPeso: 'Por arriba del peso'
+  }[tipoCuerpo] || tipoCuerpo;
+  let textoSatisfaccion = satisfaccion === 'meGusta' ? 'Quiere mejorar' : 'Necesita mejorar';
+  let textoCambio = {
+    dispuesto:  'Dispuesto a cambiar',
+    no:         'Quiere seguir igual',
+    entrenador: 'Es entrenador'
+  }[dispuestoCambio] || dispuestoCambio;
+
+  let textoPreferencia = {
+    casa:      'En casa',
+    gimnasio:  'En el gimnasio',
+    aerobico:  'Aeróbicos / funcional',
+    todo:      'Todo lo anterior'
+  }[preferencia] || preferencia;
+
+  document.getElementById("resumenPerfil").innerHTML =
+    `<b>${textoGenero}</b> | ${textoObjetivo} | ${edad} años | ${peso}${unidad} | ${altura}${unidadAltura} | ${textoCuerpo} | ${textoSatisfaccion} | ${dificultadLabel} | ${textoCambio} | ${textoPreferencia}`;
+}
+
+function siguiente(step){ next(step); }
+
+// ===== PESO =====
+function cambiarUnidad(u){
+  unidad = u;
+  document.getElementById("btnKg").classList.remove("active");
+  document.getElementById("btnLb").classList.remove("active");
+  let slider = document.getElementById("pesoSlider");
+  if(u === 'kg'){
+    document.getElementById("btnKg").classList.add("active");
+    slider.min = "40"; slider.max = "250";
+  } else {
+    document.getElementById("btnLb").classList.add("active");
+    slider.min = "88"; slider.max = "551";
+  }
+  document.getElementById("unidadActual").textContent = u;
+  guardarDatos();
+}
+
+function actualizarPeso(){
+  let slider = document.getElementById("pesoSlider");
+  let valor = parseInt(slider.value);
+  if(valor < 40) valor = 40;
+  if(valor > 250) valor = 250;
+  slider.value = valor;
+  peso = valor;
+  document.getElementById("pesoActual").textContent = peso;
+  guardarDatos();
+}
+
+// ===== ALTURA =====
+function cambiarUnidadAltura(u){
+  unidadAltura = u;
+  document.getElementById("btnCm").classList.remove("active");
+  document.getElementById("btnPol").classList.remove("active");
+  let slider = document.getElementById("alturaSlider");
+  if(u === 'cm'){
+    document.getElementById("btnCm").classList.add("active");
+    slider.min = "140"; slider.max = "220";
+  } else {
+    document.getElementById("btnPol").classList.add("active");
+    slider.min = "55"; slider.max = "87";
+  }
+  document.getElementById("unidadActualAltura").textContent = u;
+  guardarDatos();
+}
+
+function actualizarAltura(){
+  let slider = document.getElementById("alturaSlider");
+  let valor = parseInt(slider.value);
+  if(unidadAltura === 'cm'){
+    if(valor < 140) valor = 140;
+    if(valor > 220) valor = 220;
+  } else {
+    if(valor < 55) valor = 55;
+    if(valor > 87) valor = 87;
+  }
+  slider.value = valor;
+  altura = valor;
+  document.getElementById("alturaActual").textContent = altura;
+  guardarDatos();
+}
+
 function redirigir(){
+  limpiarDatos();
   window.location.href = "TU_LINK_AFILIADO";
 }
 
+// ===== AL CARGAR =====
+window.addEventListener('DOMContentLoaded', function(){
+  cargarDatos();
+
+  let sliderPeso = document.getElementById("pesoSlider");
+  if(sliderPeso){
+    if(peso === 250 || peso === 0) peso = 70;
+    sliderPeso.value = peso;
+    document.getElementById("pesoActual").textContent = peso;
+    sliderPeso.addEventListener('input', actualizarPeso);
+  }
+
+  let sliderAltura = document.getElementById("alturaSlider");
+  if(sliderAltura){
+    if(altura === 220 || altura === 0) altura = 180;
+    sliderAltura.value = altura;
+    document.getElementById("alturaActual").textContent = altura;
+    sliderAltura.addEventListener('input', actualizarAltura);
+  }
+});
 </script>
 
 </body>
