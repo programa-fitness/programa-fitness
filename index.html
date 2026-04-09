@@ -39,10 +39,48 @@ body {
 .step {
   display: none;
   padding: 20px;
+  position: relative;
 }
 
 .active {
   display: block;
+}
+
+.step-compacto {
+  padding: 12px 15px;
+}
+
+.step-compacto h2 {
+  margin: 8px 0 6px;
+  font-size: 18px;
+}
+
+.step-compacto .container {
+  margin: 6px 0;
+  gap: 10px;
+}
+
+.step-compacto .btn {
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.flecha-retroceso {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 100;
+  color: #7ED321;
+  transition: 0.2s;
+  user-select: none;
+}
+
+.flecha-retroceso:hover {
+  transform: scale(1.2);
+  color: #5fa917;
 }
 
 .btn {
@@ -92,23 +130,36 @@ body {
   display: block;
 }
 
+.step-compacto .img-full {
+  height: 200px;
+}
+
+
 .label {
   background: #7ED321;
   color: white;
-  padding: 15px;
+  padding: 10px;
   font-weight: bold;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  font-size: 14px;
 }
-
+/* ===================== */
+/* CARDS COMPACTAS MÓVIL */
+/* ===================== */
 .card-objetivo {
   background: #f0f9e8;
   border: 2px solid #7ED321;
   border-radius: 15px;
-  padding: 15px 20px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: 0.3s;
   width: 100%;
   max-width: 350px;
-  margin: 0 auto;
+  margin: 4px auto;
 }
 
 .card-objetivo:hover {
@@ -121,12 +172,12 @@ body {
   background: #f0f9e8;
   border: 2px solid #7ED321;
   border-radius: 15px;
-  padding: 15px 20px;
+  padding: 8px 12px;
   cursor: pointer;
   transition: 0.3s;
   width: 100%;
   max-width: 350px;
-  margin: 0 auto;
+  margin: 4px auto;
   text-align: left;
 }
 
@@ -134,6 +185,27 @@ body {
   background: #e8f5dc;
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(126, 211, 33, 0.3);
+}
+
+.card-objetivo > div,
+.card-objetivo-simple > div {
+  gap: 10px;
+}
+
+.card-objetivo span:first-child,
+.card-objetivo-simple span:first-child {
+  font-size: 26px;
+}
+
+.card-objetivo span:last-child,
+.card-objetivo-simple span:last-child {
+  font-size: 14px;
+}
+/* ===================== */
+
+.step > div[style*="flex-direction: column"] {
+  gap: 8px !important;
+  margin-top: 12px !important;
 }
 
 .btn-unidad {
@@ -206,7 +278,6 @@ input[type="range"]::-moz-range-thumb {
   margin: 10px 4px 0;
 }
 
-/* Gráfica dificultad */
 .grafica-container {
   width: 90%;
   max-width: 380px;
@@ -257,7 +328,8 @@ input[type="range"]::-moz-range-thumb {
 </div>
 
 <!-- PREGUNTA 1: GÉNERO -->
-<div class="step" id="step1">
+<div class="step step-compacto" id="step1">
+  <span class="flecha-retroceso" onclick="retroceder(0)">←</span>
   <h2>¿Cuál es tu género?</h2>
   <div class="container">
     <div class="card" onclick="seleccionarGenero('hombre')">
@@ -273,6 +345,7 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- LOADING -->
 <div class="step" id="step2">
+  <span class="flecha-retroceso" onclick="retroceder(1)">←</span>
   <div style="margin: 30px 0;">
     <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">PROGRAMA</h3>
     <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">RUTINA PERFECTA</h3>
@@ -286,10 +359,12 @@ input[type="range"]::-moz-range-thumb {
   <div style="margin-top:20px;">
     <img src="Img/Reto Modo Fantasma 21 días.png" style="width:80%; max-width:300px;">
   </div>
+  <button class="btn" id="btnCargaManual" style="display:none; margin-top:30px;" onclick="irDesdeCargar()">Continuar</button>
 </div>
 
 <!-- PREGUNTA 2: EDAD -->
-<div class="step" id="step3">
+<div class="step step-compacto" id="step3">
+  <span class="flecha-retroceso" onclick="retroceder(2)">←</span>
   <h2>¿Cuál es tu Edad?</h2>
   <div class="container">
     <div class="card" onclick="seleccionarEdad('18-29')">
@@ -315,37 +390,38 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PREGUNTA 3: OBJETIVO -->
 <div class="step" id="step4">
+  <span class="flecha-retroceso" onclick="retroceder(3)">←</span>
   <h2>¿Cuál es tu objetivo principal?</h2>
   <p style="color: #999; font-size: 14px;">Elige una o más opciones para continuar</p>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarObjetivo('ganarMusculo')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 40px;">💪</span>
-        <span style="font-size: 16px; font-weight: bold;">Ganar masa Muscular</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">💪</span>
+        <span style="font-size: 14px; font-weight: bold;">Ganar masa Muscular</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarObjetivo('perderPeso')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 40px;">🔥</span>
-        <span style="font-size: 16px; font-weight: bold;">Perder Peso</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🔥</span>
+        <span style="font-size: 14px; font-weight: bold;">Perder Peso</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarObjetivo('mixto')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 40px;">⚖️</span>
-        <span style="font-size: 16px; font-weight: bold;">Pierdes grasa y gana masa muscular</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">⚖️</span>
+        <span style="font-size: 14px; font-weight: bold;">Pierdes grasa y gana masa muscular</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarObjetivo('todasOpciones')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 40px;">🎯</span>
-        <span style="font-size: 16px; font-weight: bold;">Todas las Opciones</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🎯</span>
+        <span style="font-size: 14px; font-weight: bold;">Todas las Opciones</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarObjetivo('otro')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 40px;">📝</span>
-        <span style="font-size: 16px; font-weight: bold;">Otro</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">📝</span>
+        <span style="font-size: 14px; font-weight: bold;">Otro</span>
       </div>
     </div>
   </div>
@@ -353,6 +429,7 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PREGUNTA 4: PESO -->
 <div class="step" id="step5">
+  <span class="flecha-retroceso" onclick="retroceder(4)">←</span>
   <h2>¿Cuánto pesas actualmente?</h2>
   <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
     <button class="btn-unidad active" id="btnKg" onclick="cambiarUnidad('kg')">kg</button>
@@ -372,6 +449,7 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PREGUNTA 5: ALTURA -->
 <div class="step" id="step6">
+  <span class="flecha-retroceso" onclick="retroceder(5)">←</span>
   <h2>¿Cuál es tu altura?</h2>
   <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
     <button class="btn-unidad active" id="btnCm" onclick="cambiarUnidadAltura('cm')">cm</button>
@@ -390,7 +468,8 @@ input[type="range"]::-moz-range-thumb {
 </div>
 
 <!-- PREGUNTA 6: TIPO DE CUERPO -->
-<div class="step" id="step6b">
+<div class="step step-compacto" id="step6b">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Cómo describirías tu cuerpo?</h2>
   <div class="container">
     <div class="card" onclick="seleccionarCuerpo('delgado')">
@@ -416,6 +495,7 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PREGUNTA 7: SATISFACCIÓN CORPORAL -->
 <div class="step" id="step6c">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Qué tan satisfecho/a estás con tu imagen corporal actual?</h2>
   <p style="color: #999; font-size: 14px;">Elige una opción para continuar.</p>
   <div style="margin: 20px auto; max-width: 380px;">
@@ -426,15 +506,15 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarSatisfaccion('meGusta')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😐</span>
-        <span id="textoSatisfaccion1" style="font-size: 16px; font-weight: bold;"></span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😐</span>
+        <span id="textoSatisfaccion1" style="font-size: 14px; font-weight: bold;"></span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarSatisfaccion('noSatisfecho')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😟</span>
-        <span id="textoSatisfaccion2" style="font-size: 16px; font-weight: bold;"></span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😟</span>
+        <span id="textoSatisfaccion2" style="font-size: 14px; font-weight: bold;"></span>
       </div>
     </div>
   </div>
@@ -442,43 +522,43 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PREGUNTA 8: DIFICULTAD -->
 <div class="step" id="step6d">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Cuál es tu mayor dificultad para tener una rutina de entrenamiento constante?</h2>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarDificultad('tiempo', 'Falta de tiempo')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">⏰</span>
-        <span style="font-size: 16px; font-weight: bold;">Falta de Tiempo</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">⏰</span>
+        <span style="font-size: 14px; font-weight: bold;">Falta de Tiempo</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarDificultad('aburrimiento', 'Entrenamiento repetitivo')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😒</span>
-        <span style="font-size: 16px; font-weight: bold;">Creo que el entrenamiento es siempre lo mismo</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😒</span>
+        <span style="font-size: 14px; font-weight: bold;">Creo que el entrenamiento es siempre lo mismo</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarDificultad('motivacion', 'Falta de motivación')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😴</span>
-        <span style="font-size: 16px; font-weight: bold;">Falta de iniciativa o motivación</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😴</span>
+        <span style="font-size: 14px; font-weight: bold;">Falta de iniciativa o motivación</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarDificultad('tecnica', 'No sé hacer los ejercicios')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🤔</span>
-        <span style="font-size: 16px; font-weight: bold;">No se como hacer correctamente los ejercicios</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🤔</span>
+        <span style="font-size: 14px; font-weight: bold;">No se como hacer correctamente los ejercicios</span>
       </div>
     </div>
     <div class="card-objetivo-simple" onclick="seleccionarDificultad('otros', 'Otros')">
-      <span style="font-size: 16px; font-weight: bold;">Otros</span>
+      <span style="font-size: 14px; font-weight: bold;">Otros</span>
     </div>
   </div>
 </div>
 
 <!-- PANTALLA RESULTADO DIFICULTAD -->
 <div class="step" id="step6e">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2 id="tituloDificultad" style="color: #e74c3c; font-size: 22px; margin-bottom: 10px;"></h2>
-
-  <!-- Gráfica SVG -->
   <div class="grafica-container">
     <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
       <defs>
@@ -487,25 +567,12 @@ input[type="range"]::-moz-range-thumb {
           <stop offset="50%" style="stop-color:#f1c40f;stop-opacity:1" />
           <stop offset="100%" style="stop-color:#7ED321;stop-opacity:1" />
         </linearGradient>
-        <clipPath id="curvaClip">
-          <path d="M20,100 Q80,95 130,70 Q180,40 300,10 L300,110 L20,110 Z"/>
-        </clipPath>
       </defs>
-
-      <!-- Área rellena bajo la curva -->
-      <path d="M20,100 Q80,95 130,70 Q180,40 300,10 L300,110 L20,110 Z"
-            fill="url(#curvaGrad)" opacity="0.25"/>
-
-      <!-- Línea de la curva -->
-      <path d="M20,100 Q80,95 130,70 Q180,40 300,10"
-            fill="none" stroke="url(#curvaGrad)" stroke-width="4" stroke-linecap="round"/>
-
-      <!-- Punto fijo en posición media (x=155, y=55) -->
+      <path d="M20,100 Q80,95 130,70 Q180,40 300,10 L300,110 L20,110 Z" fill="url(#curvaGrad)" opacity="0.25"/>
+      <path d="M20,100 Q80,95 130,70 Q180,40 300,10" fill="none" stroke="url(#curvaGrad)" stroke-width="4" stroke-linecap="round"/>
       <circle cx="155" cy="55" r="8" fill="#f1c40f" stroke="white" stroke-width="2"/>
-
-      <!-- Etiqueta del punto -->
-      <rect x="90" y="62" width="115" height="26" rx="8" fill="#f1c40f"/>
-      <text x="148" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="white" id="etiquetaGrafica"></text>
+      <rect x="60" y="62" width="175" height="26" rx="8" fill="#f1c40f"/>
+      <text x="148" y="80" text-anchor="middle" font-size="11" font-weight="bold" fill="white" id="etiquetaGrafica"></text>
     </svg>
     <div class="grafica-labels">
       <span>Poco</span>
@@ -513,37 +580,34 @@ input[type="range"]::-moz-range-thumb {
       <span>Mucho</span>
     </div>
   </div>
-
   <p style="font-size: 14px; color: #333; margin: 15px 20px; line-height: 1.5;">
     Este es uno de los principales motivos de los bajos resultados y de la falta de constancia en la práctica de ejercicio.
   </p>
-
-  <!-- Imagen según dificultad -->
   <img id="imgDificultad" src="" class="img-dificultad">
-
   <button class="btn" onclick="irDesdeDificultad()" style="margin-top: 25px; margin-bottom: 30px;">Continuar</button>
 </div>
 
 <!-- NUEVA PANTALLA: ¿ESTÁS DISPUESTO A CAMBIAR? -->
 <div class="step" id="step6f">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Estás dispuesto a cambiar este escenario actual?</h2>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarCambio('dispuesto')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😎</span>
-        <span style="font-size: 16px; font-weight: bold;">Si, Estoy Dispuesto!</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😎</span>
+        <span style="font-size: 14px; font-weight: bold;">Si, Estoy Dispuesto!</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarCambio('no')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">😬</span>
-        <span style="font-size: 16px; font-weight: bold;">No, Quiero seguir como estoy</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">😬</span>
+        <span style="font-size: 14px; font-weight: bold;">No, Quiero seguir como estoy</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarCambio('entrenador')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">💪</span>
-        <span style="font-size: 16px; font-weight: bold;">Soy Entrenador y quiero mejorar</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">💪</span>
+        <span style="font-size: 14px; font-weight: bold;">Soy Entrenador y quiero mejorar</span>
       </div>
     </div>
   </div>
@@ -551,30 +615,31 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- NUEVA PANTALLA: PREFERENCIA DE ENTRENAMIENTO -->
 <div class="step" id="step6g">
+  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Cuál es tu preferencia?</h2>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarPreferencia('casa')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🏠</span>
-        <span style="font-size: 16px; font-weight: bold;">Entrenamientos en casa</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🏠</span>
+        <span style="font-size: 14px; font-weight: bold;">Entrenamientos en casa</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarPreferencia('gimnasio')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🏋️</span>
-        <span style="font-size: 16px; font-weight: bold;">Entrenamientos en el gimnasio</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🏋️</span>
+        <span style="font-size: 14px; font-weight: bold;">Entrenamientos en el gimnasio</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarPreferencia('aerobico')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🏃</span>
-        <span style="font-size: 16px; font-weight: bold;">Aeróbicos y entrenamiento funcional</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🏃</span>
+        <span style="font-size: 14px; font-weight: bold;">Aeróbicos y entrenamiento funcional</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarPreferencia('todo')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🤌</span>
-        <span style="font-size: 16px; font-weight: bold;">Todo lo anterior</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🤌</span>
+        <span style="font-size: 14px; font-weight: bold;">Todo lo anterior</span>
       </div>
     </div>
   </div>
@@ -600,21 +665,21 @@ input[type="range"]::-moz-range-thumb {
   <p style="color: #999; font-size: 14px;">Dime, ¿cómo prefieres recibir el material?</p>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
     <div class="card-objetivo" onclick="seleccionarFormato('celular')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">📱</span>
-        <span style="font-size: 16px; font-weight: bold;">Quiero verlo en mi celular.</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">📱</span>
+        <span style="font-size: 14px; font-weight: bold;">Quiero verlo en mi celular.</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarFormato('pdf')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">📖</span>
-        <span style="font-size: 16px; font-weight: bold;">Quiero recibirlo como PDF para imprimir.</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">📖</span>
+        <span style="font-size: 14px; font-weight: bold;">Quiero recibirlo como PDF para imprimir.</span>
       </div>
     </div>
     <div class="card-objetivo" onclick="seleccionarFormato('ambos')">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 36px;">🔥</span>
-        <span style="font-size: 16px; font-weight: bold;">Lo quiero tanto para celular como para imprimir.</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🔥</span>
+        <span style="font-size: 14px; font-weight: bold;">Lo quiero tanto para celular como para imprimir.</span>
       </div>
     </div>
   </div>
@@ -705,19 +770,15 @@ input[type="range"]::-moz-range-thumb {
 <!-- PANTALLA MATERIALES COMPLEMENTARES -->
 <div class="step" id="step6p">
   <h2 style="color:#7ED321; font-size: 22px; margin: 30px 20px 20px;">MATERIALES COMPLEMENTARES</h2>
-
   <h3 style="font-size: 18px; margin: 0 20px 10px;">SUPLEMENTACIÓN</h3>
   <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Además de sus beneficios específicos, la suplementación puede ayudar a cubrir las deficiencias nutricionales, asegurando que el cuerpo reciba todos los nutrientes necesarios para funcionar de forma óptima. Esto puede mejorar el rendimiento deportivo, aumentar la energía diaria y favorecer la recuperación muscular.</p>
   <img src="Img/suplementacion.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
-
   <h3 style="font-size: 18px; margin: 0 20px 10px;">CHECK LIST</h3>
   <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Con un diseño moderno y funcional, la Lista de Verificación ofrece secciones para planificar tus objetivos, registrar tus entrenamientos diarios y controlar tu progreso.</p>
   <img src="Img/checklist.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
-
   <h3 style="font-size: 18px; margin: 0 20px 10px;">PLANNER FIT</h3>
   <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Presentamos el Planificador de Entrenamiento: ¡tu compañero ideal para alcanzar tus objetivos de aumento de masa muscular o pérdida de peso! Este planificador se diseñó para satisfacer tus necesidades específicas, ya sea para aumentar la masa muscular o perder peso de forma saludable.</p>
   <img src="Img/planner-fit.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
-
   <button class="btn" onclick="irDesdeMateriales()" style="margin-bottom:30px;">Continuar</button>
 </div>
 
@@ -740,9 +801,6 @@ input[type="range"]::-moz-range-thumb {
   <p style="font-size: 15px; margin: 25px 20px 15px;">
     Descubre en detalle <span style="color:#7ED321; font-style:italic; font-weight:bold;">QUÉ ES El PROGRAMA RUTINA PERFECTA</span> ahora.
   </p>
-
-  <!-- CONTENEDOR VIDEO -->
-  <!-- 🎬 REEMPLAZA el src con tu URL: YouTube: https://www.youtube.com/embed/TU_VIDEO_ID?enablejsapi=1 -->
   <div style="position:relative; width:90%; max-width:380px; margin:0 auto; border-radius:12px; overflow:hidden; background:#c0392b;">
     <iframe
       id="videoFinal"
@@ -755,13 +813,8 @@ input[type="range"]::-moz-range-thumb {
       style="display:block;">
     </iframe>
   </div>
-
   <p style="font-size: 12px; color:#999; margin: 10px 20px 5px;">Mira el vídeo haciendo clic en Play, el vídeo dura menos de dos minutos.</p>
   <p style="font-size: 13px; font-weight:bold; margin: 0 20px 20px;">⚠️ Haz clic en continuar solo después de ver todo el vídeo.</p>
-
-  <!-- BOTÓN COMPRAR - oculto, aparece después del video -->
-  <!-- ⏱️ El temporizador está en 120000ms = 2 minutos. Cámbialo si el video dura diferente -->
-  <!-- 🔗 Reemplaza "TU_LINK_DE_COMPRA" con tu link de pago/afiliado -->
   <div id="btnComprarContainer" style="display:none; margin-bottom:30px;">
     <button class="btn" onclick="window.location.href='TU_LINK_DE_COMPRA'" style="background:#e74c3c;">
       🛒 ¡Quiero Acceder Ahora!
@@ -798,13 +851,28 @@ let dispuestoCambio = "";
 let preferencia = "";
 let formato = "";
 
-// ===== LOCALSTORAGE =====
+// =============================================
+// LISTA COMPLETA DE TODOS LOS IDs DE STEPS
+// =============================================
+var TODOS_LOS_STEPS = [
+  "step0","step1","step2","step3","step4","step5","step6","step7",
+  "step6b","step6c","step6d","step6e","step6f","step6g",
+  "step6h","step6i","step6j","step6k","step6l","step6m",
+  "step6n","step6o","step6p","step6q","step6r"
+];
+
+function cerrarTodos(){
+  TODOS_LOS_STEPS.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.classList.remove("active");
+  });
+}
 
 function guardarDatos(){
   let datos = {
     genero, objetivo, edad, peso, unidad,
     altura, unidadAltura, tipoCuerpo, satisfaccion,
-    dificultad, dificultadLabel, dispuestoCambio, preferencia,
+    dificultad, dificultadLabel, dispuestoCambio, preferencia, formato,
     timestamp: new Date().getTime()
   };
   localStorage.setItem("quizFitness", JSON.stringify(datos));
@@ -823,6 +891,7 @@ function cargarDatos(){
     dificultadLabel = datos.dificultadLabel || "";
     dispuestoCambio = datos.dispuestoCambio || "";
     preferencia     = datos.preferencia     || "";
+    formato         = datos.formato         || "";
     peso            = (datos.peso >= 40 && datos.peso <= 250) ? datos.peso : 70;
     unidad          = datos.unidad          || "kg";
     altura          = (datos.altura >= 140 && datos.altura <= 220) ? datos.altura : 180;
@@ -837,12 +906,33 @@ function limpiarDatos(){
   localStorage.removeItem("quizFitness");
 }
 
-// ===== QUIZ =====
+// =============================================
+// NAVEGACIÓN CORREGIDA — usa cerrarTodos()
+// =============================================
+function retroceder(stepAnterior){
+  cerrarTodos();
+  document.getElementById("step" + stepAnterior).classList.add("active");
+  actualizarBarra(stepAnterior);
+  if(stepAnterior === 1 || stepAnterior === 2){
+    document.getElementById("btnCargaManual").style.display = "inline-block";
+  }
+  window.scrollTo(0, 0);
+}
+
+function next(step){
+  cerrarTodos();
+  actualizarBarra(step + 1);
+  if(step == 5 || step == 6){
+    document.getElementById("step6b").classList.add("active");
+  } else {
+    document.getElementById("step" + (step + 1)).classList.add("active");
+  }
+}
 
 function seleccionarGenero(g){
   genero = g;
   guardarDatos();
-  document.getElementById("step1").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step2").classList.add("active");
   actualizarBarra(2);
   setTimeout(() => { mostrarNumeroUsuarios(); }, 500);
@@ -863,7 +953,7 @@ function seleccionarObjetivo(o){
 function seleccionarCuerpo(c){
   tipoCuerpo = c;
   guardarDatos();
-  document.getElementById("step6b").classList.remove("active");
+  cerrarTodos();
   prepararSatisfaccion();
   document.getElementById("step6c").classList.add("active");
   actualizarBarra(7);
@@ -882,7 +972,7 @@ function prepararSatisfaccion(){
 function seleccionarSatisfaccion(s){
   satisfaccion = s;
   guardarDatos();
-  document.getElementById("step6c").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6d").classList.add("active");
   actualizarBarra(8);
 }
@@ -891,18 +981,16 @@ function seleccionarDificultad(d, label){
   dificultad = d;
   dificultadLabel = label;
   guardarDatos();
-
   document.getElementById("tituloDificultad").textContent = label;
   document.getElementById("etiquetaGrafica").textContent = label;
   document.getElementById("imgDificultad").src = "Img/dificultad-" + d + ".png";
-
-  document.getElementById("step6d").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6e").classList.add("active");
   actualizarBarra(9);
 }
 
 function irDesdeDificultad(){
-  document.getElementById("step6e").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6f").classList.add("active");
   actualizarBarra(9.5);
 }
@@ -910,7 +998,7 @@ function irDesdeDificultad(){
 function seleccionarCambio(opcion){
   dispuestoCambio = opcion;
   guardarDatos();
-  document.getElementById("step6f").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6g").classList.add("active");
   actualizarBarra(9.8);
 }
@@ -918,7 +1006,7 @@ function seleccionarCambio(opcion){
 function seleccionarPreferencia(p){
   preferencia = p;
   guardarDatos();
-  document.getElementById("step6g").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6h").classList.add("active");
   actualizarBarra(9.9);
   animarCargaPerfecto();
@@ -934,7 +1022,7 @@ function animarCargaPerfecto(){
     if(pct >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step6h").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step6i").classList.add("active");
         actualizarBarra(9.95);
       }, 1500);
@@ -945,7 +1033,7 @@ function animarCargaPerfecto(){
 function seleccionarFormato(f){
   formato = f;
   guardarDatos();
-  document.getElementById("step6i").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6j").classList.add("active");
   actualizarBarra(9.98);
   animarCargaPlan();
@@ -961,7 +1049,7 @@ function animarCargaPlan(){
     if(pct >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step6j").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step6k").classList.add("active");
         actualizarBarra(9.99);
         animarCargaEstructura();
@@ -985,7 +1073,7 @@ function animarCargaEstructura(){
 }
 
 function irDesdeEstructura(){
-  document.getElementById("step6k").classList.remove("active");
+  cerrarTodos();
   document.getElementById("step6l").classList.add("active");
   actualizarBarra(9.995);
   animarCargaListos();
@@ -1001,7 +1089,7 @@ function animarCargaListos(){
     if(pct >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step6l").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step6n").classList.add("active");
         actualizarBarra(9.996);
         animarCargaBeneficios();
@@ -1020,42 +1108,10 @@ function animarCargaBeneficios(){
     if(pct >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step6n").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step6m").classList.add("active");
         actualizarBarra(9.997);
         animarCargaAccesorios();
-      }, 1500);
-    }
-  }, 200);
-}
-
-function irDesdeAcceso(){
-  document.getElementById("step6o").classList.remove("active");
-  document.getElementById("step6p").classList.add("active");
-  actualizarBarra(9.9995);
-}
-
-function irDesdeMateriales(){
-  document.getElementById("step6p").classList.remove("active");
-  document.getElementById("step6q").classList.add("active");
-  actualizarBarra(9.9998);
-  animarCargaPlanListo();
-}
-
-function animarCargaPlanListo(){
-  let pct = 0;
-  let intervalo = setInterval(() => {
-    pct += Math.random() * 15;
-    if(pct >= 100) pct = 100;
-    document.getElementById("porcentajePlanListo").textContent = Math.round(pct) + "%";
-    document.getElementById("barraPlanListo").style.width = pct + "%";
-    if(pct >= 100){
-      clearInterval(intervalo);
-      setTimeout(() => {
-        document.getElementById("step6q").classList.remove("active");
-        document.getElementById("step6r").classList.add("active");
-        actualizarBarra(10);
-        iniciarTemporizadorVideo();
       }, 1500);
     }
   }, 200);
@@ -1071,7 +1127,7 @@ function animarCargaAccesorios(){
     if(pct >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step6m").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step6o").classList.add("active");
         actualizarBarra(9.999);
       }, 1500);
@@ -1079,11 +1135,40 @@ function animarCargaAccesorios(){
   }, 200);
 }
 
-function iniciarTemporizadorVideo(){
-  // ⏱️ Duración del video en milisegundos. 120000 = 2 minutos
-  // Cámbialo si tu video dura diferente: 90000 = 1:30 min, 150000 = 2:30 min
-  const DURACION_VIDEO_MS = 120000;
+function irDesdeAcceso(){
+  cerrarTodos();
+  document.getElementById("step6p").classList.add("active");
+  actualizarBarra(9.9995);
+}
 
+function irDesdeMateriales(){
+  cerrarTodos();
+  document.getElementById("step6q").classList.add("active");
+  actualizarBarra(9.9998);
+  animarCargaPlanListo();
+}
+
+function animarCargaPlanListo(){
+  let pct = 0;
+  let intervalo = setInterval(() => {
+    pct += Math.random() * 15;
+    if(pct >= 100) pct = 100;
+    document.getElementById("porcentajePlanListo").textContent = Math.round(pct) + "%";
+    document.getElementById("barraPlanListo").style.width = pct + "%";
+    if(pct >= 100){
+      clearInterval(intervalo);
+      setTimeout(() => {
+        cerrarTodos();
+        document.getElementById("step6r").classList.add("active");
+        actualizarBarra(10);
+        iniciarTemporizadorVideo();
+      }, 1500);
+    }
+  }, 200);
+}
+
+function iniciarTemporizadorVideo(){
+  const DURACION_VIDEO_MS = 120000;
   setTimeout(() => {
     document.getElementById("btnComprarContainer").style.display = "block";
   }, DURACION_VIDEO_MS);
@@ -1106,7 +1191,7 @@ function mostrarNumeroUsuarios(){
     if(porcentaje >= 100){
       clearInterval(intervalo);
       setTimeout(() => {
-        document.getElementById("step2").classList.remove("active");
+        cerrarTodos();
         document.getElementById("step3").classList.add("active");
         actualizarBarra(3);
       }, 1000);
@@ -1114,14 +1199,10 @@ function mostrarNumeroUsuarios(){
   }, 200);
 }
 
-function next(step){
-  document.getElementById("step" + step).classList.remove("active");
-  actualizarBarra(step + 1);
-  if(step == 6){
-    document.getElementById("step6b").classList.add("active");
-  } else {
-    document.getElementById("step" + (step + 1)).classList.add("active");
-  }
+function irDesdeCargar(){
+  cerrarTodos();
+  document.getElementById("step3").classList.add("active");
+  actualizarBarra(3);
 }
 
 function mostrarResumen(){
@@ -1145,7 +1226,6 @@ function mostrarResumen(){
     no:         'Quiere seguir igual',
     entrenador: 'Es entrenador'
   }[dispuestoCambio] || dispuestoCambio;
-
   let textoPreferencia = {
     casa:      'En casa',
     gimnasio:  'En el gimnasio',
@@ -1154,12 +1234,11 @@ function mostrarResumen(){
   }[preferencia] || preferencia;
 
   document.getElementById("resumenPerfil").innerHTML =
-    `<b>${textoGenero}</b> | ${textoObjetivo} | ${edad} años | ${peso}${unidad} | ${altura}${unidadAltura} | ${textoCuerpo} | ${textoSatisfaccion} | ${dificultadLabel} | ${textoCambio} | ${textoPreferencia}`;
+    `<b>${textoGenero}</b> | ${textoObjetivo} | ${edad} años | ${peso}${unidad} | ${altura}${unidadAltura} | ${textoCuerpo} | ${textoSatisfaccion} | ${dificultadLabel} | ${textoCambio} | ${textoPreferencia} | ${formato}`;
 }
 
 function siguiente(step){ next(step); }
 
-// ===== PESO =====
 function cambiarUnidad(u){
   unidad = u;
   document.getElementById("btnKg").classList.remove("active");
@@ -1179,15 +1258,16 @@ function cambiarUnidad(u){
 function actualizarPeso(){
   let slider = document.getElementById("pesoSlider");
   let valor = parseInt(slider.value);
-  if(valor < 40) valor = 40;
-  if(valor > 250) valor = 250;
+  let min = unidad === 'kg' ? 40 : 88;
+  let max = unidad === 'kg' ? 250 : 551;
+  if(valor < min) valor = min;
+  if(valor > max) valor = max;
   slider.value = valor;
   peso = valor;
   document.getElementById("pesoActual").textContent = peso;
   guardarDatos();
 }
 
-// ===== ALTURA =====
 function cambiarUnidadAltura(u){
   unidadAltura = u;
   document.getElementById("btnCm").classList.remove("active");
@@ -1196,12 +1276,22 @@ function cambiarUnidadAltura(u){
   if(u === 'cm'){
     document.getElementById("btnCm").classList.add("active");
     slider.min = "140"; slider.max = "220";
+    slider.value = altura < 140 ? 180 : altura;
+    document.getElementById("alturaActual").textContent = slider.value;
   } else {
     document.getElementById("btnPol").classList.add("active");
     slider.min = "55"; slider.max = "87";
+    slider.value = "67";
+    document.getElementById("alturaActual").textContent = formatoPulgadas(67);
   }
-  document.getElementById("unidadActualAltura").textContent = u;
+  document.getElementById("unidadActualAltura").textContent = u === 'cm' ? 'cm' : '';
   guardarDatos();
+}
+
+function formatoPulgadas(totalPulgadas){
+  let pies = Math.floor(totalPulgadas / 12);
+  let pulgadas = totalPulgadas % 12;
+  return pies + "'" + pulgadas + '"';
 }
 
 function actualizarAltura(){
@@ -1210,13 +1300,18 @@ function actualizarAltura(){
   if(unidadAltura === 'cm'){
     if(valor < 140) valor = 140;
     if(valor > 220) valor = 220;
+    slider.value = valor;
+    altura = valor;
+    document.getElementById("alturaActual").textContent = altura;
+    document.getElementById("unidadActualAltura").textContent = 'cm';
   } else {
     if(valor < 55) valor = 55;
     if(valor > 87) valor = 87;
+    slider.value = valor;
+    altura = valor;
+    document.getElementById("alturaActual").textContent = formatoPulgadas(valor);
+    document.getElementById("unidadActualAltura").textContent = '';
   }
-  slider.value = valor;
-  altura = valor;
-  document.getElementById("alturaActual").textContent = altura;
   guardarDatos();
 }
 
@@ -1225,7 +1320,6 @@ function redirigir(){
   window.location.href = "TU_LINK_AFILIADO";
 }
 
-// ===== AL CARGAR =====
 window.addEventListener('DOMContentLoaded', function(){
   cargarDatos();
 
