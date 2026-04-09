@@ -438,14 +438,16 @@ input[type="range"]::-moz-range-thumb {
   <div style="font-size: 56px; font-weight: bold; color: #7ED321; margin: 20px 0;">
     <span id="pesoActual">70</span><span id="unidadActual">kg</span>
   </div>
-  <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px 0;">
-    <input type="range" id="pesoSlider" min="40" max="250" value="70"
-           style="width: 100%; height: 6px; cursor: pointer; accent-color: #7ED321;
-                  -webkit-appearance: slider-horizontal; appearance: slider-horizontal;">
-  </div>
+<div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px; box-sizing: border-box;">
+  <input type="range" id="pesoSlider" min="40" max="250" value="70"
+         style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
+              accent-color: #7ED321; display: block; box-sizing: border-box;">
+</div>
   <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
   <button class="btn" onclick="siguiente(5)" style="margin-top: 30px;">Continuar</button>
 </div>
+
+
 
 <!-- PREGUNTA 5: ALTURA -->
 <div class="step" id="step6">
@@ -458,10 +460,10 @@ input[type="range"]::-moz-range-thumb {
   <div style="font-size: 56px; font-weight: bold; color: #7ED321; margin: 20px 0;">
     <span id="alturaActual">180</span><span id="unidadActualAltura">cm</span>
   </div>
-  <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px 0;">
+  <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px; box-sizing: border-box;">
     <input type="range" id="alturaSlider" min="140" max="220" value="180"
-           style="width: 100%; height: 6px; cursor: pointer; accent-color: #7ED321;
-                  -webkit-appearance: slider-horizontal; appearance: slider-horizontal;">
+         style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
+                accent-color: #7ED321; display: block; box-sizing: border-box;">
   </div>
   <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
   <button class="btn" onclick="siguiente(6)" style="margin-top: 30px;">Continuar</button>
@@ -922,7 +924,7 @@ function retroceder(stepAnterior){
 function next(step){
   cerrarTodos();
   actualizarBarra(step + 1);
-  if(step == 5 || step == 6){
+  if(step == 6){
     document.getElementById("step6b").classList.add("active");
   } else {
     document.getElementById("step" + (step + 1)).classList.add("active");
