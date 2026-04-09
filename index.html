@@ -6,11 +6,21 @@
 <title>Quiz Fitness</title>
 
 <style>
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial;
   text-align: center;
   background: #f5f5f5;
   margin: 0;
+  padding: 0;
 }
 
 .progress-container {
@@ -54,10 +64,12 @@ body {
   gap: 15px;
   margin-top: 20px;
   flex-wrap: wrap;
+  width: 100%;
+  padding: 0 10px;
 }
 
 .card {
-  width: 200px;
+  width: 140px;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -65,6 +77,7 @@ body {
   border: none;
   box-shadow: 0 4px 10px rgba(81, 255, 0, 0.514);
   transition: 0.3s;
+  flex-shrink: 0;
 }
 
 .hero img {
@@ -217,6 +230,10 @@ input[type="range"]::-moz-range-thumb {
   object-fit: cover;
   margin: 15px auto 0;
   display: block;
+}
+
+@media (min-width: 480px) {
+  .card { width: 200px; }
 }
 </style>
 </head>
@@ -731,7 +748,7 @@ input[type="range"]::-moz-range-thumb {
       id="videoFinal"
       width="100%"
       height="280"
-      src="https://www.youtube.com/shorts/ptSHIv1eUZY"
+      src="https://www.youtube.com/embed/TU_VIDEO_ID?enablejsapi=1&rel=0"
       frameborder="0"
       allow="autoplay; encrypted-media"
       allowfullscreen
