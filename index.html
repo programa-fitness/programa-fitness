@@ -116,11 +116,15 @@ body {
   box-shadow: 0 4px 10px rgba(81, 255, 0, 0.514);
   transition: 0.3s;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero img {
   width: 90%;
   max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
 .img-full {
@@ -128,7 +132,14 @@ body {
   height: 260px;
   object-fit: cover;
   display: block;
+  border-radius: 18px 18px 0 0;
+  transition: transform 0.3s ease;
 }
+
+.card:hover .img-full {
+  transform: scale(1.03);
+}
+
 
 .step-compacto .img-full {
   height: 200px;
@@ -147,6 +158,43 @@ body {
   line-height: 1.2;
   font-size: 14px;
 }
+
+/* ===================== */
+/* EFECTO DE SELECCIÓN */
+/* ===================== */
+.card.genero-selected {
+  border: 3px solid #7dd321;
+  box-shadow: 0 0 15px rgba(125, 211, 33, 0.6);
+  transform: scale(1.08);
+  background: rgba(125, 211, 33, 0.1);
+}
+
+.card.genero-selected .label {
+  background: #7dd321;
+  color: white;
+  font-weight: bold;
+}
+
+/* ===================== */
+/* SELECCIÓN CUERPO */
+/* ===================== */
+.card.cuerpo-selected {
+  border: 3px solid #7dd321;
+  box-shadow: 0 0 15px rgba(125, 211, 33, 0.6);
+  transform: scale(1.08);
+  background: rgba(125, 211, 33, 0.1);
+}
+
+.card.cuerpo-selected .label {
+  background: #7dd321;
+  color: white;
+  font-weight: bold;
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
 /* ===================== */
 /* CARDS COMPACTAS MÓVIL */
 /* ===================== */
@@ -295,11 +343,11 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .img-dificultad {
-  width: 90%;
-  max-width: 380px;
+  width: 60%;
+  max-width: 220px;
   border-radius: 15px;
   object-fit: cover;
-  margin: 15px auto 0;
+  margin: 10px auto 0;
   display: block;
 }
 
@@ -307,6 +355,65 @@ input[type="range"]::-moz-range-thumb {
   .card { width: 200px; }
 }
 </style>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1684700866050407');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1684700866050407&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+
+<script>
+// Desabilitar clic derecho
+document.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+  alert('⚠️ No se permite copiar este contenido');
+  return false;
+});
+
+// Desabilitar seleccionar texto
+document.addEventListener('selectstart', function(event) {
+  event.preventDefault();
+  return false;
+});
+
+// Desabilitar copiar (Ctrl+C)
+document.addEventListener('copy', function(event) {
+  event.preventDefault();
+  alert('⚠️ Copiar está deshabilitado');
+  return false;
+});
+
+// Desabilitar cortar (Ctrl+X)
+document.addEventListener('cut', function(event) {
+  event.preventDefault();
+  return false;
+});
+
+// Desabilitar F12 y atajos Dev Tools
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'F12' || 
+      (event.ctrlKey && event.shiftKey && event.key === 'I') ||
+      (event.ctrlKey && event.shiftKey && event.key === 'C') ||
+      (event.ctrlKey && event.shiftKey && event.key === 'J')) {
+    event.preventDefault();
+    return false;
+  }
+});
+</script>
+
 </head>
 
 <body>
@@ -317,13 +424,27 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- LANDING -->
 <div class="step active" id="step0">
-  <h2>ENTRENA EN CASA O EN EL GIMNASIO</h2>
-  <h3 style="color:#7ED321;">CON CLARIDAD Y EFICACIA</h3>
-  <p>Una forma práctica y eficaz de ejercitarte en cualquier lugar y optimizar tus resultados.</p>
+  <h2 style="font-size: 20px; margin: 20px 0 10px;">ENTRENA EN CASA O EN EL GIMNASIO</h2>
+  <h3 style="color:#7ED321; font-size: 16px; margin: 0 0 15px;">CON CLARIDAD Y EFICACIA</h3>
+  
+  <p style="font-size: 14px; color: #1d1d1d; margin: 0 20px 10px; line-height: 1.6;">
+    Una forma práctica y eficaz de ejercitarte en cualquier lugar y optimizar tus resultados.
+  </p>
+  
+  <p style="font-size: 13px; color: #666; margin: 0 20px 20px;">
+    Tanto para perder peso como para ganar masa muscular.
+  </p>
+  
   <div class="hero">
     <img src="Img/Reto Modo Fantasma 21 días.png">
   </div>
-  <p><b>Rutinas Personalizadas listas para resultados reales.</b></p>
+  
+  <p style="font-size: 13px; margin: 15px 20px 5px;"><b>Rutinas Personalizadas listas para resultados reales.</b></p>
+  
+  <p style="font-size: 12px; color: #7ED321;; margin: 0 20px 20px;">
+    Conoce tu mejor inversión de 2026
+  </p>
+  
   <button class="btn" onclick="next(0)">Continuar</button>
 </div>
 
@@ -332,24 +453,26 @@ input[type="range"]::-moz-range-thumb {
   <span class="flecha-retroceso" onclick="retroceder(0)">←</span>
   <h2>¿Cuál es tu género?</h2>
   <div class="container">
-    <div class="card" onclick="seleccionarGenero('hombre')">
+    <div class="card" id="card-genero-hombre" onclick="seleccionarGenero('hombre', this)">
       <img src="Img/Retrato en primer plano de hombre atlético.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Hombre</div>
     </div>
-    <div class="card" onclick="seleccionarGenero('mujer')">
+    <div class="card" id="card-genero-mujer" onclick="seleccionarGenero('mujer', this)">
       <img src="Img/Retrato en el gimnasio con sonrisa.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Mujer</div>
     </div>
+  </div>
+  <!-- Mensaje de error -->
+  <div id="mensajeErrorGenero" style="color: #d32f2f; text-align: center; margin-top: 15px; display: none; font-weight: bold; font-size: 14px;">
+    ⚠️ Por favor, selecciona tu género para continuar
   </div>
 </div>
 
 <!-- LOADING -->
 <div class="step" id="step2">
   <span class="flecha-retroceso" onclick="retroceder(1)">←</span>
-  <div style="margin: 30px 0;">
-    <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">PROGRAMA</h3>
-    <h3 style="color: #7ED321; font-size: 14px; letter-spacing: 2px;">RUTINA PERFECTA</h3>
-  </div>
   <h3 id="textoCarga">Cargando... <span id="porcentaje">0%</span></h3>
   <div style="width:80%; max-width:300px; height:10px; background:#ddd; margin:20px auto; border-radius:10px;">
     <div id="barraCarga" style="height:10px; width:0%; background:#7ED321; border-radius:10px;"></div>
@@ -357,7 +480,7 @@ input[type="range"]::-moz-range-thumb {
   <h3 id="usuariosTexto" style="margin-top:20px;"></h3>
   <p>Es el número de personas que ya utilizan el reto modo fantasma 21 días</p>
   <div style="margin-top:20px;">
-    <img src="Img/Reto Modo Fantasma 21 días.png" style="width:80%; max-width:300px;">
+    <img id="imgCarga" src="Img/hombres-juntos.png" style="width:80%; max-width:300px; border-radius:15px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
   </div>
   <button class="btn" id="btnCargaManual" style="display:none; margin-top:30px;" onclick="irDesdeCargar()">Continuar</button>
 </div>
@@ -367,24 +490,30 @@ input[type="range"]::-moz-range-thumb {
   <span class="flecha-retroceso" onclick="retroceder(2)">←</span>
   <h2>¿Cuál es tu Edad?</h2>
   <div class="container">
-    <div class="card" onclick="seleccionarEdad('18-29')">
-      <img src="Img/edad-18-29.png" class="img-full">
+    <div class="card" id="card-edad-18-29" onclick="seleccionarEdad('18-29', this)">
+      <img id="img-edad-18-29" src="Img/edad-18-29.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">18 a 29</div>
     </div>
-    <div class="card" onclick="seleccionarEdad('30-39')">
-      <img src="Img/edad-30-39.png" class="img-full">
+    <div class="card" id="card-edad-30-39" onclick="seleccionarEdad('30-39', this)">
+      <img id="img-edad-30-39" src="Img/edad-30-39.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">30 a 39</div>
     </div>
-  </div>
-  <div class="container">
-    <div class="card" onclick="seleccionarEdad('40-49')">
-      <img src="Img/edad-40-49.png" class="img-full">
+    <div class="card" id="card-edad-40-49" onclick="seleccionarEdad('40-49', this)">
+      <img id="img-edad-40-49" src="Img/edad-40-49.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">40 a 49</div>
     </div>
-    <div class="card" onclick="seleccionarEdad('50+')">
-      <img src="Img/edad-50-plus.png" class="img-full">
+    <div class="card" id="card-edad-50" onclick="seleccionarEdad('50+', this)">
+      <img id="img-edad-50" src="Img/edad-50-plus.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Más de 50</div>
     </div>
+  </div>
+  <!-- Mensaje de error -->
+  <div id="mensajeErrorEdad" style="color: #d32f2f; text-align: center; margin-top: 15px; display: none; font-weight: bold; font-size: 14px;">
+    ⚠️ Por favor, selecciona tu edad para continuar
   </div>
 </div>
 
@@ -440,14 +569,13 @@ input[type="range"]::-moz-range-thumb {
   </div>
 <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px; box-sizing: border-box;">
   <input type="range" id="pesoSlider" min="40" max="250" value="70"
-         style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
+        oninput="actualizarPeso()"
+        style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
               accent-color: #7ED321; display: block; box-sizing: border-box;">
 </div>
   <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
   <button class="btn" onclick="siguiente(5)" style="margin-top: 30px;">Continuar</button>
 </div>
-
-
 
 <!-- PREGUNTA 5: ALTURA -->
 <div class="step" id="step6">
@@ -462,8 +590,9 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <div style="padding: 30px 20px; background: white; border-radius: 10px; margin: 20px; box-sizing: border-box;">
     <input type="range" id="alturaSlider" min="140" max="220" value="180"
-         style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
-                accent-color: #7ED321; display: block; box-sizing: border-box;">
+          oninput="actualizarAltura()"
+          style="width: 100%; max-width: 100%; height: 6px; cursor: pointer; 
+                  accent-color: #7ED321; display: block; box-sizing: border-box;">
   </div>
   <p style="color: #999; font-size: 12px; margin-top: 20px;">Arrastra para ajustar</p>
   <button class="btn" onclick="siguiente(6)" style="margin-top: 30px;">Continuar</button>
@@ -474,23 +603,36 @@ input[type="range"]::-moz-range-thumb {
   <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
   <h2>¿Cómo describirías tu cuerpo?</h2>
   <div class="container">
-    <div class="card" onclick="seleccionarCuerpo('delgado')">
-      <img src="Img/cuerpo-delgado.png" class="img-full">
+    <!-- 1 -->
+    <div class="card" id="card-cuerpo-delgado" onclick="seleccionarCuerpo('delgado', this)">
+      <img id="img-cuerpo-delgado" src="Img/cuerpo-delgado.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Delgado</div>
     </div>
-    <div class="card" onclick="seleccionarCuerpo('promedio')">
-      <img src="Img/cuerpo-promedio.png" class="img-full">
+
+    <!-- 2 -->
+    <div class="card" id="card-cuerpo-promedio" onclick="seleccionarCuerpo('promedio', this)">
+      <img id="img-cuerpo-promedio" src="Img/cuerpo-promedio.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Promedio</div>
     </div>
-  </div>
-  <div class="container">
-    <div class="card" onclick="seleccionarCuerpo('grande')">
-      <img src="Img/cuerpo-grande.png" class="img-full">
+
+    <!-- 3 -->
+    <div class="card" id="card-cuerpo-grande" onclick="seleccionarCuerpo('grande', this)">
+      <img id="img-cuerpo-grande" src="Img/cuerpo-grande.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Grande</div>
     </div>
-    <div class="card" onclick="seleccionarCuerpo('porArribaPeso')">
-      <img src="Img/cuerpo-por-arriba.png" class="img-full">
+
+    <!-- 4 -->
+    <div class="card" id="card-cuerpo-arriba" onclick="seleccionarCuerpo('porArribaPeso', this)">
+      <img id="img-cuerpo-arriba" src="Img/cuerpo-por-arriba.png" class="img-full">
+      <div style="height:30px; margin-top:-30px; background:linear-gradient(to bottom, transparent, #7dd3218f); position:relative; z-index:1;"></div>
       <div class="label">Por arriba del peso</div>
+    </div>
+    <!-- Mensaje de error -->
+    <div id="mensajeErrorCuerpo" style="color: #d32f2f; text-align: center; margin-top: 15px; display: none; font-weight: bold; font-size: 14px;">
+      ⚠️ Por favor, selecciona tu tipo de cuerpo para continuar
     </div>
   </div>
 </div>
@@ -501,7 +643,7 @@ input[type="range"]::-moz-range-thumb {
   <h2>¿Qué tan satisfecho/a estás con tu imagen corporal actual?</h2>
   <p style="color: #999; font-size: 14px;">Elige una opción para continuar.</p>
   <div style="margin: 20px auto; max-width: 380px;">
-    <img id="imgSatisfaccion" src="" class="img-satisfaccion">
+    <img id="imgSatisfaccion" src="Img/Hombre midiendo su cintura en el gimnasio.png" class="img-satisfaccion">
     <div style="margin-top: 10px;">
       <span class="punto-carrusel"></span>
     </div>
@@ -585,7 +727,7 @@ input[type="range"]::-moz-range-thumb {
   <p style="font-size: 14px; color: #333; margin: 15px 20px; line-height: 1.5;">
     Este es uno de los principales motivos de los bajos resultados y de la falta de constancia en la práctica de ejercicio.
   </p>
-  <img id="imgDificultad" src="" class="img-dificultad">
+  <img id="imgDificultad" src="Img/Pareja triste en habitación oscura.png" class="img-dificultad">
   <button class="btn" onclick="irDesdeDificultad()" style="margin-top: 25px; margin-bottom: 30px;">Continuar</button>
 </div>
 
@@ -689,7 +831,7 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- PANTALLA PREPARACIÓN DEL PLAN -->
 <div class="step" id="step6j">
-  <h2 style="color:#7ED321; font-size: 20px; margin: 30px 20px 20px;">PREPARACIÓN DE UN PLAN BASADO EN SUS RESPUESTAS</h2>
+  <h2 style="color:#7ED321; font-size: 20px; margin: 30px 20px 20px;">CREANDO UN PROGRAMA FITNESS ADAPTADO PARA TI</h2>
   <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
     <span style="font-size: 14px; color: #333;">Cargando...</span>
     <span id="porcentajePlan" style="font-size: 14px; color: #333;">0%</span>
@@ -710,7 +852,7 @@ input[type="range"]::-moz-range-thumb {
   <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
     <div id="barraEstructura" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
   </div>
-  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa de entrenamiento Fitnes Completo</p>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa fitness adaptado para ti</p>
   <p style="font-size: 16px; color: #7ED321; font-weight: bold; margin: 15px 20px; line-height: 1.5;">Una gran ventaja de este material es que, además de las ilustraciones, comprenderás los beneficios, cómo realizar los ejercicios y recibirás consejos increíbles.</p>
   <img src="Img/estructura-entrenamiento.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
   <button class="btn" id="btnEstructura" style="display:none;" onclick="irDesdeEstructura()">Continuar</button>
@@ -726,8 +868,7 @@ input[type="range"]::-moz-range-thumb {
   <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
     <div id="barraListos" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
   </div>
-  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa de entrenamiento Fitnes Completo</p>
-  <img src="Img/entrenamiento-listos.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
+  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa fitness adaptado para ti</p>
 </div>
 
 <!-- PANTALLA BENEFICIOS, EJECUCION Y CONSEJOS -->
@@ -740,7 +881,7 @@ input[type="range"]::-moz-range-thumb {
   <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
     <div id="barraBeneficios" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
   </div>
-  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa de entrenamiento Fitnes por objetivo</p>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa fitness adaptado para ti</p>
   <img src="Img/beneficios-consejos.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
 </div>
 
@@ -754,7 +895,7 @@ input[type="range"]::-moz-range-thumb {
   <div style="width: 90%; max-width: 380px; height: 6px; background: #ddd; margin: 8px auto 10px; border-radius: 10px;">
     <div id="barraAccesorios" style="height: 6px; width: 0%; background: #7ED321; border-radius: 10px; transition: width 0.2s;"></div>
   </div>
-  <p style="font-size: 13px; color: #999; margin: 5px 20px 20px;">Creando un programa Fitnes</p>
+  <p style="font-size: 13px; color: #999; margin: 5px 20px;">Creando un programa fitness adaptado para ti</p>
   <img src="Img/guia-accesorios.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 25px;">
 </div>
 
@@ -765,22 +906,32 @@ input[type="range"]::-moz-range-thumb {
   <p style="font-size: 22px; margin: 10px 0;">+</p>
   <p style="font-size: 15px; margin: 0 20px 15px;">Materiales esenciales y guias prácticas para optimizar tu tiempo y maximizar tus resultados.</p>
   <img src="Img/acceso-programa.png" style="width: 90%; max-width: 380px; border-radius: 15px; display: block; margin: 0 auto 15px;">
-  <p style="font-size: 13px; font-weight: bold; margin: 0 20px 20px;">DESARROLLADO Y DISEÑADO PARA BRINDARLE EFICIENCIA, PRACTICIDAD Y CLARIDAD.</p>
+  <p style="font-size: 13px; font-weight: bold; margin: 0 20px 20px;">DESARROLLADO Y DISEÑADO PARA BRINDARTE EFICIENCIA, PRACTICIDAD Y CLARIDAD.</p>
   <button class="btn" onclick="irDesdeAcceso()" style="margin-bottom: 30px;">Continuar</button>
 </div>
 
 <!-- PANTALLA MATERIALES COMPLEMENTARES -->
 <div class="step" id="step6p">
-  <h2 style="color:#7ED321; font-size: 22px; margin: 30px 20px 20px;">MATERIALES COMPLEMENTARES</h2>
-  <h3 style="font-size: 18px; margin: 0 20px 10px;">SUPLEMENTACIÓN</h3>
-  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Además de sus beneficios específicos, la suplementación puede ayudar a cubrir las deficiencias nutricionales, asegurando que el cuerpo reciba todos los nutrientes necesarios para funcionar de forma óptima. Esto puede mejorar el rendimiento deportivo, aumentar la energía diaria y favorecer la recuperación muscular.</p>
-  <img src="Img/suplementacion.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
-  <h3 style="font-size: 18px; margin: 0 20px 10px;">CHECK LIST</h3>
-  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Con un diseño moderno y funcional, la Lista de Verificación ofrece secciones para planificar tus objetivos, registrar tus entrenamientos diarios y controlar tu progreso.</p>
-  <img src="Img/checklist.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
-  <h3 style="font-size: 18px; margin: 0 20px 10px;">PLANNER FIT</h3>
-  <p style="font-size: 14px; color:#333; margin: 0 20px 15px; line-height:1.5;">Presentamos el Planificador de Entrenamiento: ¡tu compañero ideal para alcanzar tus objetivos de aumento de masa muscular o pérdida de peso! Este planificador se diseñó para satisfacer tus necesidades específicas, ya sea para aumentar la masa muscular o perder peso de forma saludable.</p>
-  <img src="Img/planner-fit.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+  <h2 style="color:#7ED321; font-size: 22px; margin: 30px 20px 20px;">BONOS GRATIS LISTOS AHORA 🎁</h2>
+  
+  <div style="margin-bottom: 50px;">
+    <h3 style="font-size: 16px; margin: 0 20px 8px; color:#333;">GUIA DE NUTRICIÓN</h3>
+    <p style="font-size: 13px; color:#666; margin: 0 20px 15px; line-height:1.5;">Nutrición real, sin restricciones extremas. Para tu vida y tu cuerpo.</p>
+    <img src="Img/nutricion.png" style="width:55%; max-width:200px; border-radius:12px; display:block; margin:0 auto 25px;">
+  </div>
+  
+  <div style="margin-bottom: 50px;">
+    <h3 style="font-size: 16px; margin: 0 20px 8px; color:#333;">PLANTILLA DE ENTRENAMIENTO EDITABLE</h3>
+    <p style="font-size: 13px; color:#666; margin: 0 20px 15px; line-height:1.5;">Planificá cada semana. Registrá tu progreso. Mantenete en el sistema.</p>
+    <img src="Img/plantillaseditables.jpeg" style="width:55%; max-width:200px; border-radius:12px; display:block; margin:0 auto 25px;">
+  </div>
+  
+  <div style="margin-bottom: 50px;">
+    <h3 style="font-size: 16px; margin: 0 20px 8px; color:#333;">ACTIVA TU MODO IMPARABLE</h3>
+    <p style="font-size: 13px; color:#666; margin: 0 20px 15px; line-height:1.5;">Disciplina mental en formato audio. Para escuchar donde sea y cuando sea.</p>
+    <img src="Img/activamodo.jpeg" style="width:55%; max-width:200px; border-radius:12px; display:block; margin:0 auto 25px;">
+  </div>
+  
   <button class="btn" onclick="irDesdeMateriales()" style="margin-bottom:30px;">Continuar</button>
 </div>
 
@@ -795,15 +946,22 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <h2 style="color:#7ED321; font-size: 22px; margin: 10px 20px 5px;">Tu Plan está listo...</h2>
   <p style="font-size: 14px; color:#333; margin: 0 20px 20px;">Recibirás mucho más que una simple ficha de entrenamiento...</p>
-  <img src="Img/testimonios-whatsapp.png" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
+  <img src="Img/testimonios-whatsapp.jpeg" style="width:90%; max-width:380px; border-radius:15px; display:block; margin:0 auto 25px;">
 </div>
 
 <!-- PANTALLA VIDEO FINAL -->
 <div class="step" id="step6r">
-  <p style="font-size: 15px; margin: 25px 20px 15px;">
-    Descubre en detalle <span style="color:#7ED321; font-style:italic; font-weight:bold;">QUÉ ES El PROGRAMA RUTINA PERFECTA</span> ahora.
+  <p style="font-size: 18px; margin: 25px 20px 15px; font-weight: bold; color: #333;">
+    Descubre en detalle <span style="color:#7ED321; font-style:italic;">EL PACK FITNNES QUE TE ARMAMOS PARA TI</span> ahora.
   </p>
-  <div style="position:relative; width:90%; max-width:380px; margin:0 auto; border-radius:12px; overflow:hidden; background:#c0392b;">
+  
+  <!-- IMAGEN DEL PACK -->
+  <div style="width:90%; max-width:380px; margin:20px auto;">
+    <img src="Img/programa-completo.png" style="width:100%; border-radius:15px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); display:block;">
+  </div>
+  
+  <!-- VIDEO OCULTO PERO FUNCIONAL - REEMPLAZAR "TU_VIDEO_ID" MÁS TARDE -->
+  <div style="position:relative; width:90%; max-width:380px; margin:0 auto; border-radius:12px; overflow:hidden; background:#c0392b; display:none;">
     <iframe
       id="videoFinal"
       width="100%"
@@ -815,29 +973,21 @@ input[type="range"]::-moz-range-thumb {
       style="display:block;">
     </iframe>
   </div>
-  <p style="font-size: 12px; color:#999; margin: 10px 20px 5px;">Mira el vídeo haciendo clic en Play, el vídeo dura menos de dos minutos.</p>
-  <p style="font-size: 13px; font-weight:bold; margin: 0 20px 20px;">⚠️ Haz clic en continuar solo después de ver todo el vídeo.</p>
-  <div id="btnComprarContainer" style="display:none; margin-bottom:30px;">
-    <button class="btn" onclick="window.location.href='TU_LINK_DE_COMPRA'" style="background:#e74c3c;">
-      🛒 ¡Quiero Acceder Ahora!
+  
+  <p style="font-size: 13px; font-weight:bold; margin: 0 20px 20px;">✅ Continuando a tu programa exclusivo...</p>
+  
+  <div id="btnComprarContainer" style="display:block; margin-bottom:30px;">
+    <button class="btn" onclick="window.location.href='https://go.hotmart.com/I105284874R'" style="background:#7ED321;">
+      Ver Mi Programa Exclusivo
     </button>
   </div>
 </div>
 
-<!-- PANTALLA FINAL -->
-<div class="step" id="step7">
-  <div style="margin: 30px 0;">
-    <h2>¡Tu Rutina Está Lista!</h2>
-    <p>Basada en tu perfil personalizado</p>
-    <div style="margin: 30px 0;">
-      <img src="Img/Reto Modo Fantasma 21 días.png" style="width:80%; max-width:300px; border-radius: 15px;">
-    </div>
-    <p id="resumenPerfil"></p>
-    <button class="btn" onclick="redirigir()">Acceder a tu Rutina</button>
-  </div>
-</div>
 
 <script>
+// =============================================
+// VARIABLES GLOBALES
+// =============================================
 let genero = "";
 let objetivo = "";
 let edad = "";
@@ -909,15 +1059,97 @@ function limpiarDatos(){
 }
 
 // =============================================
-// NAVEGACIÓN CORREGIDA — usa cerrarTodos()
+// FUNCIÓN: Cargar imágenes de edad según género
+// =============================================
+function cargarImagenesEdad() {
+  if (!genero) {
+    console.warn("Género no seleccionado");
+    return;
+  }
+  
+  const imagenesEdad = {
+    hombre: {
+      '18-29': 'Img/18-29.png',
+      '30-39': 'Img/30-39.png',
+      '40-49': 'Img/40-49.png',
+      '50+':   'Img/+50.png'
+    },
+    mujer: {
+      '18-29': 'Img/18-29 m.png',
+      '30-39': 'Img/30-39 m.png',
+      '40-49': 'Img/40-49 m.png',
+      '50+':   'Img/+50 m.png'
+    }
+  };
+  
+  const imgGenero = imagenesEdad[genero];
+  
+  if (!imgGenero) {
+    console.error("Género no reconocido:", genero);
+    return;
+  }
+  
+  const elementos = [
+    { id: 'img-edad-18-29', rango: '18-29' },
+    { id: 'img-edad-30-39', rango: '30-39' },
+    { id: 'img-edad-40-49', rango: '40-49' },
+    { id: 'img-edad-50',    rango: '50+' }
+  ];
+  
+  elementos.forEach(item => {
+    const elem = document.getElementById(item.id);
+    if (elem) {
+      elem.src = imgGenero[item.rango];
+      elem.onerror = function() {
+        console.error("No se pudo cargar:", imgGenero[item.rango]);
+      };
+    } else {
+      console.warn("Elemento no encontrado:", item.id);
+    }
+  });
+}
+  
+  const imgGenero = imagenesEdad[genero];
+  if (imgGenero) {
+    document.getElementById('img-edad-18-29').src = imgGenero['18-29'];
+    document.getElementById('img-edad-30-39').src = imgGenero['30-39'];
+    document.getElementById('img-edad-40-49').src = imgGenero['40-49'];
+    document.getElementById('img-edad-50').src = imgGenero['50+'];
+  }
+
+
+// =============================================
+// FUNCIÓN: Retroceder (MEJORADA)
 // =============================================
 function retroceder(stepAnterior){
   cerrarTodos();
+  
+  // Limpiar selecciones cuando retrocedes
+  if(stepAnterior === 1){
+    document.querySelectorAll('#step1 .card').forEach(card => {
+      card.classList.remove('genero-selected');
+    });
+  }
+  if(stepAnterior === 3){
+    document.querySelectorAll('#step3 .card').forEach(card => {
+      card.classList.remove('edad-selected');
+    });
+  }
+  if(stepAnterior === 6){
+    document.querySelectorAll('#step6b .card').forEach(card => {
+      card.classList.remove('cuerpo-selected');
+    });
+    document.getElementById("mensajeErrorCuerpo").style.display = 'none';
+    cargarImagenesCuerpo();  // ← AGREGA ESTA LÍNEA
+  }
+  
   document.getElementById("step" + stepAnterior).classList.add("active");
   actualizarBarra(stepAnterior);
+  
   if(stepAnterior === 1 || stepAnterior === 2){
     document.getElementById("btnCargaManual").style.display = "inline-block";
   }
+  
   window.scrollTo(0, 0);
 }
 
@@ -929,20 +1161,80 @@ function next(step){
   } else {
     document.getElementById("step" + (step + 1)).classList.add("active");
   }
+  window.scrollTo(0, 0);
 }
 
-function seleccionarGenero(g){
+// =============================================
+// FUNCIÓN: Seleccionar Género (CORREGIDA)
+// =============================================
+function seleccionarGenero(g, elemento){
   genero = g;
+  
+  // Remover clase "selected" de todas las cards de género
+  document.querySelectorAll('#step1 .card').forEach(card => {
+    card.classList.remove('genero-selected');
+  });
+  
+  // Agregar clase "selected" al elemento clickeado
+  elemento.classList.add('genero-selected');
+  
+  // Ocultar mensaje de error
+  document.getElementById("mensajeErrorGenero").style.display = 'none';
+  
   guardarDatos();
+  
+  // Asignar imagen ANTES de mostrar el step
+  if(genero === 'mujer'){
+    document.getElementById("imgCarga").src = 'Img/mujeres-juntas.png';
+  } else {
+    document.getElementById("imgCarga").src = 'Img/hombres-juntos.png';
+  }
+  
   cerrarTodos();
   document.getElementById("step2").classList.add("active");
   actualizarBarra(2);
-  setTimeout(() => { mostrarNumeroUsuarios(); }, 500);
+  window.scrollTo(0, 0);
+  mostrarNumeroUsuarios();
 }
 
-function seleccionarEdad(e){
+// =============================================
+// FUNCIÓN: Seleccionar Edad (SIN ANIMACIÓN)
+// =============================================
+function seleccionarEdad(e, elemento) {
+  // Validar que se haya seleccionado género primero
+  if (!genero) {
+    document.getElementById("mensajeErrorEdad").style.display = 'block';
+    document.getElementById("mensajeErrorEdad").textContent = '⚠️ Por favor, selecciona tu género primero';
+    setTimeout(() => {
+      retroceder(1);
+    }, 1000);
+    return;
+  }
+
+  // Validar que se haya clickeado correctamente
+  if (!e || !elemento) {
+    document.getElementById("mensajeErrorEdad").style.display = 'block';
+    return;
+  }
+
+  // Asignar edad
   edad = e;
+  
+  // Remover clase "selected" de todas las cards de edad
+  document.querySelectorAll('#step3 .card').forEach(card => {
+    card.classList.remove('edad-selected');
+  });
+  
+  // Agregar clase "selected" al elemento clickeado
+  elemento.classList.add('edad-selected');
+  
+  // Ocultar mensaje de error
+  document.getElementById("mensajeErrorEdad").style.display = 'none';
+  
+  // Guardar datos
   guardarDatos();
+  
+  // Continuar al siguiente paso SIN DELAY
   next(3);
 }
 
@@ -952,19 +1244,50 @@ function seleccionarObjetivo(o){
   next(4);
 }
 
-function seleccionarCuerpo(c){
+// =============================================
+// FUNCIÓN: Seleccionar Cuerpo (CON VALIDACIÓN)
+// =============================================
+function seleccionarCuerpo(c, elemento){
+  // Validar que se haya seleccionado un tipo de cuerpo válido
+  const tiposValidos = ['delgado', 'promedio', 'grande', 'porArribaPeso'];
+  
+  if (!tiposValidos.includes(c)) {
+    console.error("Tipo de cuerpo no válido:", c);
+    document.getElementById("mensajeErrorCuerpo").style.display = 'block';
+    return;
+  }
+  
+  if (!elemento || !elemento.classList) {
+    console.error("Elemento no válido");
+    return;
+  }
+  
   tipoCuerpo = c;
+  console.log("Tipo de cuerpo seleccionado:", tipoCuerpo);
+  
+  // Limpiar selecciones anteriores
+  document.querySelectorAll('#step6b .card').forEach(card => {
+    card.classList.remove('cuerpo-selected');
+  });
+  
+  // Agregar selección al elemento clickeado
+  elemento.classList.add('cuerpo-selected');
+  
+  // Ocultar mensaje de error
+  document.getElementById("mensajeErrorCuerpo").style.display = 'none';
+  
   guardarDatos();
   cerrarTodos();
   prepararSatisfaccion();
   document.getElementById("step6c").classList.add("active");
   actualizarBarra(7);
+  window.scrollTo(0, 0);
 }
 
 function prepararSatisfaccion(){
-  document.getElementById("imgSatisfaccion").src = genero === 'mujer'
-    ? 'Img/satisfaccion-mujer.png'
-    : 'Img/satisfaccion-hombre.png';
+  // Imagen ÚNICA e independiente
+  document.getElementById("imgSatisfaccion").src = 'Img/Hombre midiendo su cintura en el gimnasio.png';
+  
   document.getElementById("textoSatisfaccion1").textContent = "Me gusta mi cuerpo, pero quiero mejorarlo.";
   document.getElementById("textoSatisfaccion2").textContent = genero === 'mujer'
     ? "No estoy satisfecha, necesito mejorar."
@@ -977,6 +1300,7 @@ function seleccionarSatisfaccion(s){
   cerrarTodos();
   document.getElementById("step6d").classList.add("active");
   actualizarBarra(8);
+  window.scrollTo(0, 0);
 }
 
 function seleccionarDificultad(d, label){
@@ -985,16 +1309,19 @@ function seleccionarDificultad(d, label){
   guardarDatos();
   document.getElementById("tituloDificultad").textContent = label;
   document.getElementById("etiquetaGrafica").textContent = label;
-  document.getElementById("imgDificultad").src = "Img/dificultad-" + d + ".png";
+  document.getElementById("imgDificultad").src = "Img/Pareja triste en habitación oscura.png";
   cerrarTodos();
   document.getElementById("step6e").classList.add("active");
   actualizarBarra(9);
+  window.scrollTo(0, 0);
 }
+
 
 function irDesdeDificultad(){
   cerrarTodos();
   document.getElementById("step6f").classList.add("active");
   actualizarBarra(9.5);
+  window.scrollTo(0, 0);
 }
 
 function seleccionarCambio(opcion){
@@ -1003,6 +1330,7 @@ function seleccionarCambio(opcion){
   cerrarTodos();
   document.getElementById("step6g").classList.add("active");
   actualizarBarra(9.8);
+  window.scrollTo(0, 0);
 }
 
 function seleccionarPreferencia(p){
@@ -1011,6 +1339,7 @@ function seleccionarPreferencia(p){
   cerrarTodos();
   document.getElementById("step6h").classList.add("active");
   actualizarBarra(9.9);
+  window.scrollTo(0, 0);
   animarCargaPerfecto();
 }
 
@@ -1027,6 +1356,7 @@ function animarCargaPerfecto(){
         cerrarTodos();
         document.getElementById("step6i").classList.add("active");
         actualizarBarra(9.95);
+        window.scrollTo(0, 0);
       }, 1500);
     }
   }, 200);
@@ -1038,6 +1368,7 @@ function seleccionarFormato(f){
   cerrarTodos();
   document.getElementById("step6j").classList.add("active");
   actualizarBarra(9.98);
+  window.scrollTo(0, 0);
   animarCargaPlan();
 }
 
@@ -1054,6 +1385,7 @@ function animarCargaPlan(){
         cerrarTodos();
         document.getElementById("step6k").classList.add("active");
         actualizarBarra(9.99);
+        window.scrollTo(0, 0);
         animarCargaEstructura();
       }, 1500);
     }
@@ -1078,6 +1410,7 @@ function irDesdeEstructura(){
   cerrarTodos();
   document.getElementById("step6l").classList.add("active");
   actualizarBarra(9.995);
+  window.scrollTo(0, 0);
   animarCargaListos();
 }
 
@@ -1094,6 +1427,7 @@ function animarCargaListos(){
         cerrarTodos();
         document.getElementById("step6n").classList.add("active");
         actualizarBarra(9.996);
+        window.scrollTo(0, 0);
         animarCargaBeneficios();
       }, 1500);
     }
@@ -1113,6 +1447,7 @@ function animarCargaBeneficios(){
         cerrarTodos();
         document.getElementById("step6m").classList.add("active");
         actualizarBarra(9.997);
+        window.scrollTo(0, 0);
         animarCargaAccesorios();
       }, 1500);
     }
@@ -1132,6 +1467,7 @@ function animarCargaAccesorios(){
         cerrarTodos();
         document.getElementById("step6o").classList.add("active");
         actualizarBarra(9.999);
+        window.scrollTo(0, 0);
       }, 1500);
     }
   }, 200);
@@ -1141,12 +1477,14 @@ function irDesdeAcceso(){
   cerrarTodos();
   document.getElementById("step6p").classList.add("active");
   actualizarBarra(9.9995);
+  window.scrollTo(0, 0);
 }
 
 function irDesdeMateriales(){
   cerrarTodos();
   document.getElementById("step6q").classList.add("active");
   actualizarBarra(9.9998);
+  window.scrollTo(0, 0);
   animarCargaPlanListo();
 }
 
@@ -1163,17 +1501,28 @@ function animarCargaPlanListo(){
         cerrarTodos();
         document.getElementById("step6r").classList.add("active");
         actualizarBarra(10);
-        iniciarTemporizadorVideo();
+        window.scrollTo(0, 0);
+        // iniciarTemporizadorVideo(); // ← Comentado temporalmente
       }, 1500);
     }
   }, 200);
 }
 
+function irAlProgramaExclusivo(){
+  // El botón ya está visible, simplemente continúa
+  cerrarTodos();
+  document.getElementById("step6s").classList.add("active");
+  actualizarBarra(10.001);
+  window.scrollTo(0, 0);
+  mostrarResumen();
+}
+
 function iniciarTemporizadorVideo(){
-  const DURACION_VIDEO_MS = 120000;
-  setTimeout(() => {
-    document.getElementById("btnComprarContainer").style.display = "block";
-  }, DURACION_VIDEO_MS);
+  // Función desactivada - el video se agregará más tarde
+  // const DURACION_VIDEO_MS = 120000;
+  // setTimeout(() => {
+  //   document.getElementById("btnComprarContainer").style.display = "block";
+  // }, DURACION_VIDEO_MS);
 }
 
 function actualizarBarra(step){
@@ -1184,6 +1533,14 @@ function actualizarBarra(step){
 function mostrarNumeroUsuarios(){
   let numero = genero === 'mujer' ? 'Más de 4 mil' : 'Más de 3 mil';
   document.getElementById("usuariosTexto").textContent = numero;
+
+  // Validar género y asignar imagen correcta
+  if(genero === 'mujer'){
+    document.getElementById("imgCarga").src = 'Img/mujeres-juntas.png';
+  } else {
+    document.getElementById("imgCarga").src = 'Img/hombres-juntos.png';
+  }
+
   let porcentaje = 0;
   let intervalo = setInterval(() => {
     porcentaje += Math.random() * 30;
@@ -1194,8 +1551,10 @@ function mostrarNumeroUsuarios(){
       clearInterval(intervalo);
       setTimeout(() => {
         cerrarTodos();
+        cargarImagenesEdad();
         document.getElementById("step3").classList.add("active");
         actualizarBarra(3);
+        window.scrollTo(0, 0);
       }, 1000);
     }
   }, 200);
@@ -1203,8 +1562,10 @@ function mostrarNumeroUsuarios(){
 
 function irDesdeCargar(){
   cerrarTodos();
+  cargarImagenesEdad();
   document.getElementById("step3").classList.add("active");
   actualizarBarra(3);
+  window.scrollTo(0, 0);
 }
 
 function mostrarResumen(){
@@ -1239,7 +1600,14 @@ function mostrarResumen(){
     `<b>${textoGenero}</b> | ${textoObjetivo} | ${edad} años | ${peso}${unidad} | ${altura}${unidadAltura} | ${textoCuerpo} | ${textoSatisfaccion} | ${dificultadLabel} | ${textoCambio} | ${textoPreferencia} | ${formato}`;
 }
 
-function siguiente(step){ next(step); }
+function siguiente(step){ 
+  guardarDatos(); // Agregar esto
+  if(step === 6){
+    cargarImagenesCuerpo();
+  }
+  next(step); 
+}
+
 
 function cambiarUnidad(u){
   unidad = u;
@@ -1315,6 +1683,41 @@ function actualizarAltura(){
     document.getElementById("unidadActualAltura").textContent = '';
   }
   guardarDatos();
+}
+
+function cargarImagenesCuerpo() {
+  if (!genero) return;
+  
+  const imagenesCuerpo = {
+    hombre: {
+      'delgado':       'Img/delgado.png',
+      'promedio':      'Img/promedio.png',
+      'grande':        'Img/grande.png',
+      'porArribaPeso': 'Img/arriba peso.png'
+    },
+    mujer: {
+      'delgado':       'Img/delgada m.png',
+      'promedio':      'Img/promedio m.png',
+      'grande':        'Img/grande m.png',
+      'porArribaPeso': 'Img/arriba peso m.png'
+    }
+  };
+  
+  const imgGenero = imagenesCuerpo[genero];
+  
+  const elementos = [
+    { id: 'img-cuerpo-delgado', rango: 'delgado' },
+    { id: 'img-cuerpo-promedio', rango: 'promedio' },
+    { id: 'img-cuerpo-grande', rango: 'grande' },
+    { id: 'img-cuerpo-arriba', rango: 'porArribaPeso' }
+  ];
+  
+  elementos.forEach(item => {
+    const elem = document.getElementById(item.id);
+    if (elem) {
+      elem.src = imgGenero[item.rango];
+    }
+  });
 }
 
 function redirigir(){
