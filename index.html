@@ -504,6 +504,18 @@ input[type="range"]::-moz-range-thumb {
 /* BONOS - step6o_5 */
 #step6o_5 {
   max-width: 100%;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#step6o_5 > div {
+  width: 90%;
+  max-width: 380px;
+  margin: 0 auto;
   padding: 20px;
 }
 
@@ -608,7 +620,6 @@ src="https://www.facebook.com/tr?id=1684700866050407&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-
 <script>
 // Desabilitar clic derecho
 document.addEventListener('contextmenu', function(event) {
@@ -647,7 +658,6 @@ document.addEventListener('keydown', function(event) {
   }
 });
 </script>
-
 
 </head>
 
@@ -1171,26 +1181,29 @@ document.addEventListener('keydown', function(event) {
   <button class="btn" onclick="irDesdeAcceso()" style="margin-bottom: 30px;">Continuar</button>
 </div>
 
-<!-- PANTALLA: AGREGANDO BONOS GRATIS - DISEÑO MEJORADO -->
-<div class="step" id="step6o.5">
-  <span class="flecha-retroceso" onclick="retroceder(6)">←</span>
+<div class="step" id="step6o.5" style="min-height: 100vh; padding: 20px;">
   
-  <!-- TEXTO + PORCENTAJE EN UNA LÍNEA -->
-  <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 0; margin-bottom: 10px;">
-    <span style="font-size: 16px; color: #333; font-weight: bold;">Agregando bonos gratis...</span>
-    <span id="porcentajeBonos" style="font-size: 18px; color: #7dd321; font-weight: bold;">0%</span>
+  <!-- Contenedor centrador interno -->
+  <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    
+    <!-- TEXTO + PORCENTAJE EN UNA LÍNEA -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 380px; margin-bottom: 10px;">
+      <span style="font-size: 16px; color: #333; font-weight: bold;">Agregando bonos gratis...</span>
+      <span id="porcentajeBonos" style="font-size: 18px; color: #7dd321; font-weight: bold;">0%</span>
+    </div>
+    
+    <!-- BARRA DE PROGRESO -->
+    <div style="width: 90%; max-width: 380px; height: 8px; background: #f0f0f0; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+      <div id="barraBonos" style="height: 8px; width: 0%; background: linear-gradient(90deg, #7ED321, #85c93ce0); border-radius: 10px; transition: width 0.3s ease;"></div>
+    </div>
+    
+    <!-- TEXTO DESCRIPTIVO -->
+    <p style="font-size: 14px; color: #333; margin: 15px 0 0; font-weight: 500; text-align: center; line-height: 1.5; width: 90%; max-width: 380px;">
+      Identificando bonos exclusivos para agregar a tu plan de entrenamiento
+    </p>
+
   </div>
-  
-  <!-- BARRA DE PROGRESO ANARANJADA -->
-  <div style="width: 90%; max-width: 380px; height: 8px; background: #f0f0f0; margin: 10px auto 15px; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
-    <div id="barraBonos" style="height: 8px; width: 0%; background: linear-gradient(90deg, #7ED321, #85c93ce0); border-radius: 10px; transition: width 0.3s ease; box-shadow: 0 2px 4px rgba(255, 149, 0, 0.3);"></div>
-  </div>
-  
-  <!-- TEXTO DESCRIPTIVO ABAJO -->
-  <p style="font-size: 14px; color: #333; margin: 0 20px; font-weight: 500; text-align: center; line-height: 1.5;">
-    Identificando bonos exclusivos para agregar a tu plan
-  </p>
-</div> 
+</div>
 
 <!-- PANTALLA MATERIALES COMPLEMENTARES -->
 <div class="step" id="step6p">
