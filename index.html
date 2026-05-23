@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Open Graph / Vista previa para redes sociales -->
-<meta property="og:title" content="Guía de Entrenamiento y Nutrición DESAFÍO 90 DÍAS" />
-<meta property="og:description" content="Tu solución 3 en 1 para la transformación física. Plan personalizado para ectomorfo, mesomorfo o endomorfo. ¡Empieza tu desafío hoy!" />
-<meta property="og:image" content="https://programa-fitness.github.io/programa-fitness/Img/Desafio-90-Dias.png?v=3" />
+<meta property="og:title" content="Plan de Entrenamiento Personalizado" />
+<meta property="og:description" content="Descubre tu plan de entrenamiento personalizado. ¡Empieza a transformar tu físico hoy!" />
+<meta property="og:image" content="https://programa-fitness.github.io/programa-fitness/Img/portada.png?v=3" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://programa-fitness.github.io/programa-fitness/" />
 <meta property="og:type" content="website" />
 <meta property="og:image:type" content="image/png" />
-<meta property="og:site_name" content="Guía de Entrenamiento y Nutrición DESAFÍO 90 DÍAS" />
+<meta property="og:site_name" content="Plan de Entrenamiento Personalizado" />
 
 
 <title>Guía de Entrenamiento y Nutrición DESAFÍO 90 DÍAS</title>
@@ -694,21 +694,21 @@ document.addEventListener('keydown', function(event) {
 
 <!-- LANDING -->
 <div class="step active" id="step0">
-  <h2 style="font-size: 20px; margin: 20px 0 10px;">GUÍA DE ENTRENAMIENTO Y NUTRICIÓN</h2>
-  <h3 style="color:#7ED321; font-size: 16px; margin: 0 0 15px;">DESAFÍO 90 DÍAS</h3>
+  <h2 style="font-size: 20px; margin: 20px 0 10px;">PLAN DE ENTRENAMIENTO PERSONALIZADO</h2>
+  <h3 style="color:#7ED321; font-size: 16px; margin: 0 0 15px;">CON CLARIDAD Y EFICACIA</h3>
   
   <p style="font-size: 14px; color: #1d1d1d; margin: 0 20px 10px; line-height: 1.6;">
-    Tu solución 3 en 1 para la transformación física. Un programa completo para ectomorfo, mesomorfo o endomorfo.
+    Metodo practico y eficaz de ejercitarte en cualquier lugar y optimizar tus resultados.
   </p>
   
   <div class="hero">
     <img src="Img/Desafio-90-Dias.png">
   </div>
   
-  <p style="font-size: 13px; margin: 15px 20px 5px;"><b>Plan de entrenamiento y nutrición personalizado listos para resultados reales.</b></p>
+  <p style="font-size: 13px; margin: 15px 20px 5px;"><b>Planes De Entrenamiento Personalizados listos para resultados reales.</b></p>
   
   <p style="font-size: 12px; color: #7ED321;; margin: 0 20px 20px;">
-    Transforma tu cuerpo en 90 días con la estrategia correcta
+    Conoce tu mejor inversión de 2026
   </p>
   
   <button class="btn" onclick="next(0)">Continuar</button>
@@ -982,8 +982,8 @@ document.addEventListener('keydown', function(event) {
       <span>Mucho</span>
     </div>
   </div>
-  <p style="font-size: 14px; color: #333; margin: 15px 20px; line-height: 1.5;">
-    Este es uno de los principales motivos de los bajos resultados y de la falta de constancia en la práctica de ejercicio. El Desafío 90 Días elimina estas barreras con un plan estructurado y fácil de seguir.
+  <p style="font-size: 14px; color: #333; margin: 12px 20px; line-height: 1.5;">
+    Este es uno de los principales motivos de los bajos resultados y de la falta de constancia en la práctica de ejercicio.
   </p>
   <img id="imgDificultad" src="Img/Pareja triste en habitación oscura.png" class="img-dificultad">
   <button class="btn" onclick="irDesdeDificultad()" style="margin-top: 25px; margin-bottom: 30px;">Continuar</button>
@@ -1856,19 +1856,23 @@ function siguiente(step){
 window.addEventListener('DOMContentLoaded', function(){
   cargarDatos();
 
+  // Inicializar peso en 70kg
   let sliderPeso = document.getElementById("pesoSlider");
   if(sliderPeso){
-    if(peso === 250 || peso === 0) peso = 70;
+    peso = 70;  // ✅ SIEMPRE 70kg sin condiciones
     sliderPeso.value = peso;
     document.getElementById("pesoActual").textContent = peso;
+    document.getElementById("unidadActual").textContent = 'kg';
     sliderPeso.addEventListener('input', actualizarPeso);
   }
 
+  // Inicializar altura en 180cm
   let sliderAltura = document.getElementById("alturaSlider");
   if(sliderAltura){
-    if(altura === 220 || altura === 0) altura = 180;
+    altura = 180;  // ✅ SIEMPRE 180cm sin condiciones
     sliderAltura.value = altura;
     document.getElementById("alturaActual").textContent = altura;
+    document.getElementById("unidadActualAltura").textContent = 'cm';
     sliderAltura.addEventListener('input', actualizarAltura);
   }
 });
